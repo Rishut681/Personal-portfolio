@@ -16,15 +16,19 @@
       "imageSrc": "skills/node.png"
     },
     {
-      "title": "GraphQL",
-      "imageSrc": "skills/graphql.png"
-    },
-    {
-      "title": "MongoDB",
-      "imageSrc": "skills/mongodb.png"
+      "title": "Nextjs",
+      "imageSrc": "skills/next.png"
     },
     {
       "title": "Figma",
       "imageSrc": "skills/figma.png"
+    },
+    {
+      "title": "Git",
+      "imageSrc": "skills/git.png"
+    },
+    {
+      "title": "Github",
+      "imageSrc": "skills/github.png"
     }
   ]
