@@ -1,3 +1,4 @@
+
 # Portfolio Project
 
 This is a portfolio project built using React and JavaScript to showcase my skills, projects, and experiences.
@@ -8,6 +9,7 @@ This is a portfolio project built using React and JavaScript to showcase my skil
 - [Technologies Used](#technologies-used)
 - [Setup and Installation](#setup-and-installation)
 - [Usage](#usage)
+- [Contributing](#contributing)
 - [Contact](#contact)
 
 ## Demo
@@ -61,26 +63,28 @@ Run the following command to start the development server:
 
 ```bash
 npm start
+```
 
-Open http://localhost:3000 to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Usage
+
 Feel free to use this project as a template for your own portfolio. You can customize the content, design, and add your own projects and experiences.
 
-Usage
-Feel free to use this project as a template for your own portfolio. You can customize the content, design, and add your own projects and experiences.
+## Contributing
 
-Contributing
 Contributions are welcome! Please follow these steps:
 
--> Fork the project
--> Create your feature branch ('git checkout -b feature/my-new-feature')
--> Commit your changes ('git commit -am 'Add some feature')
--> Push to the branch ('git push origin feature/my-new-feature')
--> Create a new Pull Request
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin feature/my-new-feature`)
+5. Create a new Pull Request
 
-Contact
+
+## Contact
+
 If you have any questions or suggestions, feel free to contact me:
 
--> Email: rishut681@gmail.com
--> LinkedIn: https://www.linkedin.com/in/rishu-raj-322637253/
+- Email: mailto:rishut681@gmail.com
+- LinkedIn: https://www.linkedin.com/in/rishu-raj-322637253/
