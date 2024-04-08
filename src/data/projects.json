@@ -1,26 +1,23 @@
 [
     {
       "title": "Project A",
-      "imageSrc": "projects/project.png",
-      "description": "This is a project made to learn the latest languages by building an app.",
-      "skills": ["React", "Express", "Node"],
-      "demo": "https://www.example.com",
-      "source": "https://www.github.com"
+      "imageSrc": "projects/portfolio.png",
+      "description": "This is a Personal Portfolio Website made using latest lnguages.",
+      "skills": ["React", "JavaScript", "Node"],
+      "source": "https://github.com/Rishut681/Personal-portfolio"
     },
     {
       "title": "Project B",
-      "imageSrc": "projects/project.png",
+      "imageSrc": "projects/carschool.png",
       "description": "This is a project made to learn the latest languages by building an app.",
-      "skills": ["React", "Express", "Node", "Sass"],
-      "demo": "https://www.example.com",
-      "source": "https://www.github.com"
+      "skills": ["React", "Node", "JavaScript"],
+      "source": "https://github.com/Rishut681/Project-1"
     },
     {
-      "title": "Project C",
-      "imageSrc": "projects/project.png",
-      "description": "This is a project made to learn the latest languages by building an app.",
-      "skills": ["React", "Express", "Node"],
-      "demo": "https://www.example.com",
-      "source": "https://www.github.com"
+      "title": "Spotify Clone",
+      "imageSrc": "projects/spotify.png",
+      "description": "This is a project made to learn the latest languages by building an basic app clone.",
+      "skills": ["HTML5", "CSS3"],
+      "source": "https://www.github.com/Rishut681/Spotify-clone"
     }
   ]
