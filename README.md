@@ -14,7 +14,7 @@ This is a portfolio project built using React and JavaScript to showcase my skil
 
 ## Demo
 
-You can see a live demo of the project at [Demo Link](#).
+You can see a live demo of the project at [Demo Link](https://rishupersonalportfolio.netlify.app/).
 
 ## Features
 
