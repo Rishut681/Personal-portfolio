@@ -11,7 +11,7 @@ const projectsData = [
         id: 1,
         title: 'NEXA: E-commerce Platform',
         description: 'A full-stack e-commerce application featuring user authentication, product catalog, shopping cart, and secure payment processing. Built with React, Node.js, Express, and MongoDB.',
-        image: '/asset/ecommerce.png', // Replace with your project image
+        image: 'https://www.dropbox.com/scl/fi/9yab27rbge04krykfidd3/ecommerce.png?rlkey=r7r81a3bwb23ewk3tme53zxnh&st=6ctmmuez&dl=1', // Replace with your project image
         githubLink: 'https://github.com/Rishut681/E-commerce', // Replace with your GitHub link
         liveDemoLink: 'https://github.com/Rishut681/E-commerce', // Replace with your live demo link (optional)
     },
@@ -19,7 +19,7 @@ const projectsData = [
         id: 2,
         title: 'CityZen - Smart ',
         description: 'Leveraging advanced AI and computer vision, CityZen is a robust smart city surveillance solution. It automates the detection of incidents like accidents and crimes, and continuously assesses infrastructure for anomalies, streamlining urban management and emergency response.',
-        image: '/asset/cityzen.jpeg', // Replace with your project image
+        image: 'https://www.dropbox.com/scl/fi/ncohg76r6kvhuyb8c4cyv/cityzen.jpeg?rlkey=6fa8cwd4lkbbh8hd577yauufk&st=j1wg62ik&dl=1', // Replace with your project image
         githubLink: 'https://github.com/Ritesh-660/CityZenMatrix2.O', // Replace with your GitHub link
         liveDemoLink: 'https://github.com/Ritesh-660/CityZenMatrix2.O', // Replace with your live demo link (optional)
     },
@@ -27,7 +27,7 @@ const projectsData = [
         id: 3,
         title: 'Personal Portfolio (This One!)',
         description: 'The very portfolio you are viewing! Built from scratch with React and Framer Motion, focusing on modern design, responsive layouts, and captivating animations.',
-        image: '/asset/portfolio.png', // Replace with your project image
+        image: 'https://www.dropbox.com/scl/fi/81wn2o7sj2tevoc02zo6r/portfolio.png?rlkey=ajotsjioflvdnyx5hmuwcek1w&st=bx3papyz&dl=1', // Replace with your project image
         githubLink: 'https://github.com/Rishut681/Personal-portfolio', // Replace with your GitHub link
         liveDemoLink: 'https://rishupersonalportfolio.netlify.app', // Replace with your live demo link (optional)
     },
