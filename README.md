@@ -1,30 +1,90 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Portfolio Project
 
-Currently, two official plugins are available:
+This is a portfolio project built using React and JavaScript to showcase my skills, projects, and experiences.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
+- [Demo](#demo)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup and Installation](#setup-and-installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Contact](#contact)
 
-## Expanding the ESLint configuration
+## Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+You can see a live demo of the project at [Demo Link](https://rishupersonalportfolio.netlify.app/).
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- **Home Page**: Introduction about myself and a brief overview of my skills and experiences.
+- **Projects Page**: Display of my projects with details, technologies used, and links to GitHub repositories or live demos.
+- **Contact Page**: A contact form for visitors to reach out to me.
+- **Responsive Design**: The portfolio is fully responsive and works on all screen sizes.
+
+## Technologies Used
+
+- React
+- JavaScript
+- HTML
+- CSS
+
+## Setup and Installation
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/Rishut681/Personal-portfolio.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd Personal-portfolio
+    ```
+
+3. Install the dependencies:
+
+    ```bash
+    npm install
+    ```
+
+### Running the Project
+
+Run the following command to start the development server:
+
+```bash
+npm start
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Usage
+
+Feel free to use this project as a template for your own portfolio. You can customize the content, design, and add your own projects and experiences.
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin feature/my-new-feature`)
+5. Create a new Pull Request
+
+
+## Contact
+
+If you have any questions or suggestions, feel free to contact me:
+
+- Email: mailto:rishut681@gmail.com
+- LinkedIn: https://www.linkedin.com/in/rishu-raj-322637253/
