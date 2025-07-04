@@ -1,0 +1,24 @@
+/* --- Footer Styles --- */
+.footer {
+    background-color: #1a202c; /* Same as navbar for consistency */
+    color: #a7b7cc;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+    border-top: 1px solid #2d3748; /* Subtle top border */
+}
+
+.footer-text {
+    margin: 0.5rem 0;
+    line-height: 1.5;
+}
+
+.footer-text a {
+    color: #8b5cf6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-text a:hover {
+    color: #7c3aed;
+}

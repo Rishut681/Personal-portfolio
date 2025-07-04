@@ -1,0 +1,129 @@
+/* --- About Section Styles --- */
+.about-section {
+  padding: 6rem 2rem; /* Top/bottom padding, side padding */
+  max-width: 1200px; /* Same max width as navbar */
+  margin: 0 auto; /* Center the section */
+  color: #cbd5e1; /* Default text color */
+  /* background-color: #0f172a; /* Optional: if you want a different background than body */
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #f8fafc; /* White for title */
+  margin-bottom: 0.75rem;
+  position: relative; /* For the underline effect */
+  display: inline-block; /* To make underline fit content */
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60%; /* Width of the underline */
+  height: 4px;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899); /* Gradient underline */
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  font-size: 1.3rem;
+  color: #94a3b8; /* Subdued color */
+  font-weight: 400;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: row; /* Default: text and image side-by-side */
+  gap: 4rem; /* Space between text and image */
+  align-items: center; /* Vertically align items */
+}
+
+.about-text {
+  flex: 1; /* Takes up available space */
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+.about-text p {
+  margin-bottom: 1.5rem; /* Space between paragraphs */
+}
+
+.about-image-container {
+  flex: 0 0 auto; /* Don't grow or shrink, base on content */
+  width: 400px; /* Fixed width for the image container */
+  height: 500px; /* Fixed height */
+  border-radius: 12px; /* Slightly rounded corners for the container */
+  overflow: hidden; /* Ensure image doesn't overflow rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Deeper shadow */
+  position: relative; /* For potential overlay effects */
+  display: flex; /* To center image if it's smaller */
+  justify-content: center;
+  align-items: center;
+  background-color: #1e293b; /* Background for placeholder */
+}
+
+.about-profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the container, cropping if necessary */
+  display: block;
+  border-radius: 12px; /* Ensure image itself has rounded corners */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+  .about-content {
+    flex-direction: column; /* Stack text and image vertically */
+    gap: 3rem;
+  }
+
+  .about-image-container {
+    width: 80%; /* Make image container wider on smaller screens */
+    height: auto; /* Auto height to maintain aspect ratio */
+    max-width: 350px; /* Max width for image */
+    background-color: transparent; /* Ensure no background behind transparent image */
+    box-shadow: none;
+  }
+
+  .about-profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Use 'contain' if the image isn't meant to fill the container and you want to preserve transparency around it, otherwise 'cover' is fine */
+    display: block;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+}

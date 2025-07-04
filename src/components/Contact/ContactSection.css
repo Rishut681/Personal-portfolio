@@ -1,0 +1,153 @@
+/* --- Contact Section Styles --- */
+.contact-section {
+    padding: 6rem 2rem;
+    max-width: 1000px; /* Slightly narrower for contact */
+    margin: 0 auto;
+    color: #cbd5e1;
+    text-align: center;
+}
+
+/* Re-use section-header, section-title, section-subtitle from previous sections */
+.section-header {
+    margin-bottom: 3.5rem;
+}
+
+/* Specific styling for the intro/outro text in contact */
+.contact-intro, .contact-outro {
+    font-size: 1.15rem;
+    color: #a7b7cc;
+    max-width: 700px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.7;
+}
+
+.contact-outro {
+    margin-top: 3rem;
+    margin-bottom: 0;
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+
+.contact-details-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: center;
+    gap: 2.5rem 4rem; /* Row gap, column gap */
+    margin-bottom: 3rem;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 200px; /* Ensure items don't get too squished */
+}
+
+.contact-icon {
+    color: #8b5cf6; /* Purple accent color */
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 3px 6px rgba(139, 92, 246, 0.3)); /* Soft shadow */
+}
+
+.contact-link {
+    color: #e2e8f0;
+    font-size: 1.2rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: #a7b7cc;
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Space between social buttons */
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.9rem 1.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent; /* For subtle hover effect */
+}
+
+.social-btn:hover {
+    border-color: #8b5cf6; /* Highlight border on hover */
+}
+
+/* Specific button colors */
+.social-btn.social-btn:nth-child(1) { /* GitHub */
+    background-color: #24292e;
+    color: #ffffff;
+}
+.social-btn.social-btn:nth-child(2) { /* LinkedIn */
+    background-color: #0077B5;
+    color: #ffffff;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 4rem 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .contact-intro, .contact-outro {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .contact-details-grid {
+        flex-direction: column; /* Stack contact items vertically */
+        gap: 2rem;
+    }
+
+    .contact-link {
+        font-size: 1.1rem;
+    }
+
+    .social-btn {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .social-links {
+        flex-direction: column; /* Stack social buttons on very small screens */
+    }
+
+    .social-btn {
+        width: 100%; /* Full width for stacked buttons */
+        justify-content: center;
+    }
+}
