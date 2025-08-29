@@ -140,7 +140,7 @@ const HeroSection = () => {
                             Contact Me
                         </motion.a>
                         <motion.a
-                            href="/asset/Rishu-Resume.pdf"
+                            href="https://www.dropbox.com/scl/fi/c5sn08luxssh6hmkiwano/Rishu-Resume.pdf?rlkey=yri27if3xnwwzjfa4oeqi6ksf&st=un2loezk&dl=1"
                             className="btn resume-btn"
                             variants={buttonVariants}
                             target="_blank"

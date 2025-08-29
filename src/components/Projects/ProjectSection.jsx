@@ -10,7 +10,7 @@ const projects = [
     description:
       "A comprehensive e-commerce solution with product management, auth, secure checkout, and role-based access. Built with modern full-stack practices.",
     image:
-      "/asset/ecommerce.png",
+      "https://www.dropbox.com/scl/fi/9yab27rbge04krykfidd3/ecommerce.png?rlkey=r7r81a3bwb23ewk3tme53zxnh&st=tc6o9nlg&dl=1",
     githubLink: "https://github.com/Rishut681/E-commerce",
     liveDemoLink: "https://nexa-ecommerce.vercel.app/",
     tech: ["MERN", "JWT", "Stripe", "Cloud Storage"],
@@ -21,7 +21,7 @@ const projects = [
     description:
       "AI-powered platform for real-time detection of accidents, crimes, and infrastructure issues to enhance urban safety and response.",
     image:
-      "/asset/cityzen.jpeg",
+      "https://www.dropbox.com/scl/fi/ncohg76r6kvhuyb8c4cyv/cityzen.jpeg?rlkey=6fa8cwd4lkbbh8hd577yauufk&st=76t6t48o&dl=1",
     githubLink: "https://github.com/Rishut681/Accialert",
     liveDemoLink: "#",
     tech: ["Python", "Flask", "Tensorflow", "OpenCV"],
@@ -32,7 +32,7 @@ const projects = [
     description:
       "Live market data, sparkline charts, and portfolio tracking with clean API integration and tidy data viz.",
     image:
-      "/asset/crypto.png",
+      "https://www.dropbox.com/scl/fi/qiucm09djya0ntasxi31y/crypto.png?rlkey=u26tllw7b31f1c1jzd0d9e602&st=oh67pulz&dl=1",
     githubLink: "https://github.com/Rishut681/my-crypto-dashboard",
     liveDemoLink: "https://my-crypto-dashboard-pearl.vercel.app/",
     tech: ["React", "Charts", "REST APIs", "Caching"],
@@ -43,7 +43,7 @@ const projects = [
     description:
       "Robust ticket lifecycle, status tracking, and streamlined communication for customer support teams.",
     image:
-      "/asset/helpdesk.png",
+      "https://www.dropbox.com/scl/fi/6dgh10hwvnlx0by078jfa/helpdesk.png?rlkey=9p1bjowxrqmkdipv5k0j7ofnp&st=63jr45zy&dl=1",
     githubLink: "https://github.com/Rishut681/Helpdesk_app",
     liveDemoLink: "https://helpdesksite.netlify.app/",
     tech: ["Node", "Express", "MongoDB", "Auth"],
@@ -54,7 +54,7 @@ const projects = [
     description:
       "This portfolio—modern UI, responsive design, smooth animations, and polished UX.",
     image:
-      "/asset/portfolio.png",
+      "https://www.dropbox.com/scl/fi/81wn2o7sj2tevoc02zo6r/portfolio.png?rlkey=ajotsjioflvdnyx5hmuwcek1w&st=nlz44k08&dl=1",
     githubLink: "https://github.com/Rishut681/Personal-portfolio",
     liveDemoLink: "https://rishupersonalportfolio.netlify.app",
     tech: ["React", "Framer Motion", "CSS", "A11y"],

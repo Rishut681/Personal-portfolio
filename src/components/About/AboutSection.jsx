@@ -110,7 +110,7 @@ const AboutSection = () => {
               <p>Certifications Earned</p>
             </div>
             <motion.a
-              href="/asset/Rishu-Resume.pdf"
+              href="https://www.dropbox.com/scl/fi/c5sn08luxssh6hmkiwano/Rishu-Resume.pdf?rlkey=yri27if3xnwwzjfa4oeqi6ksf&st=un2loezk&dl=1"
               variants={itemVariants}
               target="_blank"
               className="resume-button"
@@ -129,7 +129,7 @@ const AboutSection = () => {
         >
           <motion.img
             src="https://www.dropbox.com/scl/fi/kplelawhwnpnp1onmlbj8/IMG_20250621_111114113-Photoroom.png?rlkey=tiwsbpvgxs9k9aizniscw53vf&st=5e15jg0s&dl=1"
-            alt="Rishu Jaiswal Profile"
+            alt="Rishu Raj Profile"
             className="about-profile-pic"
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
