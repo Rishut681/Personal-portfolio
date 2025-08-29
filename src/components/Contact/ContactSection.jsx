@@ -1,110 +1,116 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, Github, Linkedin } from 'lucide-react'; // Icons for contact
-import './ContactSection.css'; // We'll create this CSS file
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin, Github, Linkedin, CheckCircle } from "lucide-react";
+import "./ContactSection.css";
+import emailjs from "emailjs-com";
 
 const ContactSection = () => {
-    // Animation variants for the entire section
-    const sectionVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: 'spring',
-                stiffness: 50,
-                damping: 10,
-                when: 'beforeChildren',
-                staggerChildren: 0.1,
-            },
-        },
-    };
+  const [submitted, setSubmitted] = useState(false);
 
-    // Variants for individual contact items/links
-    const itemVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: 'spring',
-                stiffness: 70,
-                damping: 15,
-            },
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        "service_ig7k8e8",        // ✅ Your Service ID
+        "template_1daujbk",      // ✅ Your Template ID
+        e.target, 
+        "sDCF2m2kH6koizTOF"      // ✅ Your Public Key
+      )
+      .then(
+        (result) => {
+          setSubmitted(true);
+          console.log("SUCCESS!", result.text);
         },
-    };
+        (error) => {
+          console.error("FAILED...", error.text);
+          alert("Failed to send message. Try again later.");
+        }
+      );
+  };
 
-    return (
-        <motion.section
-            className="contact-section"
-            id="contact" // ID for Navbar linking
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible" // Animate when section is in view
-            viewport={{ once: true, amount: 0.2 }} // Animate once, when 20% visible
+  return (
+    <section className="contact-section" id="contact">
+      <div className="contact-header">
+        <h2 className="contact-title">Let’s Connect</h2>
+        <p className="contact-description">
+          Whether you’re looking to collaborate, hire, or just say hi, feel free to drop me a message.
+          I’ll get back to you as soon as possible!
+        </p>
+      </div>
+
+      <div className="contact-container">
+        {/* Contact Info Card */}
+        <motion.div
+          className="contact-info-card"
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
         >
-            <div className="section-header">
-                <motion.h2 variants={itemVariants} className="section-title">
-                    Get In Touch
-                </motion.h2>
-                <motion.p variants={itemVariants} className="section-subtitle">
-                    Have a project in mind or just want to chat?
-                </motion.p>
-            </div>
+          <h3 className="info-title">Contact Information</h3>
+          <ul className="info-list">
+            <li><Mail size={18} /> rishut681@gmail.com</li>
+            <li><Phone size={18} /> +91 8882905323</li>
+            <li><MapPin size={18} /> New Delhi, India</li>
+          </ul>
 
-            <div className="contact-content">
-                <motion.p variants={itemVariants} className="contact-intro">
-                    I'm always open to new opportunities and collaborations. Feel free to reach out!
-                </motion.p>
+          <div className="social-links">
+            <a href="https://github.com/Rishut681" target="_blank" rel="noreferrer">
+              <Github size={22} />
+            </a>
+            <a href="https://www.linkedin.com/in/rishu-raj-322637253/" target="_blank" rel="noreferrer">
+              <Linkedin size={22} />
+            </a>
+          </div>
+        </motion.div>
 
-                <div className="contact-details-grid">
-                    <motion.div variants={itemVariants} className="contact-item">
-                        <Mail size={32} className="contact-icon" />
-                        <a href="mailto:rishut681@gmail.com" className="contact-link">
-                            rishut681@gmail.com
-                        </a>
-                    </motion.div>
-
-                    <motion.div variants={itemVariants} className="contact-item">
-                        <Phone size={32} className="contact-icon" />
-                        <a href="tel:+918882905323" className="contact-link">
-                            +91 8882905323
-                        </a>
-                    </motion.div>
-                </div>
-
-                <div className="social-links">
-                    <motion.a
-                        variants={itemVariants}
-                        href="https://github.com/Rishut681" // Replace with your GitHub profile URL
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="social-btn"
-                        whileHover={{ scale: 1.1, backgroundColor: '#555' }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <Github size={28} /> GitHub
-                    </motion.a>
-
-                    <motion.a
-                        variants={itemVariants}
-                        href="https://linkedin.com/in/rishu-raj-322637253" // Replace with your LinkedIn profile URL
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="social-btn"
-                        whileHover={{ scale: 1.1, backgroundColor: '#0077B5' }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <Linkedin size={28} /> LinkedIn
-                    </motion.a>
-                </div>
-
-                <motion.p variants={itemVariants} className="contact-outro">
-                    Let's build something amazing together!
-                </motion.p>
-            </div>
-        </motion.section>
-    );
+        {/* Contact Form */}
+        <motion.form
+          className="contact-form"
+          initial={{ opacity: 0, x: 60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          onSubmit={handleSubmit}
+        >
+          {submitted ? (
+            <motion.div
+              className="success-message"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4 }}
+            >
+              <CheckCircle size={28} color="#22c55e" />
+              <p>Message Sent Successfully!</p>
+            </motion.div>
+          ) : (
+            <>
+              <div className="form-group">
+                <input type="text" name="from_name" required />
+                <label>Your Name</label>
+              </div>
+              <div className="form-group">
+                <input type="email" name="from_email" required />
+                <label>Your Email</label>
+              </div>
+              <div className="form-group">
+                <textarea name="message" rows="5" required></textarea>
+                <label>Your Message</label>
+              </div>
+              <motion.button
+                type="submit"
+                className="submit-btn"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Send Message
+              </motion.button>
+            </>
+          )}
+        </motion.form>
+      </div>
+    </section>
+  );
 };
 
 export default ContactSection;

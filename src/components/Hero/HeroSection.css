@@ -1,61 +1,61 @@
-/* General Body Styles (add to your main App.css or index.css) */
-body {
-    margin: 0;
-    font-family: 'Inter', 'Arial', sans-serif; /* Recommended modern font */
-    background-color: #0f172a; /* Dark background for contrast */
-    color: #cbd5e1; /* Light text for dark background */
-    line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-}
-
 /* --- Hero Section Styles --- */
 .hero-section {
-    min-height: 100vh; /* Full viewport height */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Subtle gradient */
     position: relative;
-    overflow: hidden; /* Hide anything outside */
+    overflow: hidden;
+    background-color: #0f172a;
+    text-align: center; /* Center content horizontally */
 }
 
-.hero-content {
+.particles-bg {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-content-wrapper {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
     max-width: 900px;
-    z-index: 10; /* Ensure content is above any background effects */
 }
 
 .hero-title {
-    font-size: 3.8rem; /* Large and impactful */
-    font-weight: 700;
+    font-size: 4.5rem;
+    font-weight: 800;
     margin-bottom: 1rem;
-    color: #f8fafc; /* Even lighter for emphasis */
-    line-height: 1.1; /* Tighter line height */
+    line-height: 1.1;
+    color: #f8fafc;
 }
 
-.hero-title .highlight {
-    color: #8b5cf6; /* A vibrant purple for your name */
-    background: -webkit-linear-gradient(45deg, #8b5cf6, #ec4899); /* Gradient highlight */
+.hero-hl{
+    font-size: 2.8rem;
+    font-weight: 500;
+}
+
+.hero-highlight {
+    background: linear-gradient(45deg, #8b5cf6, #ec4899);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: 800;
 }
 
 .hero-tagline {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 500;
-    color: #94a3b8; /* Slightly subdued */
+    color: #94a3b8;
     margin-bottom: 2rem;
-    min-height: 2.5rem; /* Prevent layout shift during typing */
+    min-height: 2.5rem;
 }
-
-.hero-tagline .TypeAnimation {
-    display: inline-block; /* Essential for text typing library */
-}
-
 
 .hero-description {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: #a7b7cc;
     margin-bottom: 3rem;
     max-width: 700px;
@@ -66,32 +66,29 @@ body {
 .hero-buttons {
     display: flex;
     justify-content: center;
-    gap: 1.5rem; /* Space between buttons */
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .btn {
-    display: inline-block;
-    padding: 0.9rem 2.2rem;
-    border-radius: 8px; /* Slightly rounded corners */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.05rem;
-    transition: all 0.3s ease;
-    border: none;
     cursor: pointer;
-    text-align: center;
+    border: none;
+    transition: all 0.3s ease;
 }
 
 .primary-btn {
-    background-color: #8b5cf6; /* Purple */
+    background-color: #8b5cf6;
     color: #ffffff;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); /* Subtle shadow */
-}
-
-.primary-btn:hover {
-    background-color: #7c3aed; /* Darker purple on hover */
-    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
 }
 
 .secondary-btn {
@@ -100,21 +97,48 @@ body {
     border: 2px solid #8b5cf6;
 }
 
-.secondary-btn:hover {
-    background-color: #8b5cf6;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+.resume-btn {
+    background-color: #f8fafc;
+    color: #0f172a;
+    box-shadow: 0 4px 15px rgba(248, 250, 252, 0.4);
+}
+
+.resume-btn:hover {
+    background-color: #e2e8f0;
 }
 
 /* --- Responsive Adjustments --- */
+/* For tablets and smaller laptops */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 4rem;
+    }
+
+    .hero-tagline {
+        font-size: 1.8rem;
+    }
+
+    .hero-description {
+        font-size: 1.1rem;
+    }
+
+    .hero-buttons {
+        gap: 1rem;
+    }
+}
+
+/* For mobile devices */
 @media (max-width: 768px) {
+    .hero-section {
+        min-height: 80vh; /* Adjust height for mobile */
+    }
+
     .hero-title {
         font-size: 2.8rem;
     }
 
     .hero-tagline {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .hero-description {
@@ -122,23 +146,37 @@ body {
     }
 
     .hero-buttons {
-        flex-direction: column; /* Stack buttons vertically */
-        gap: 1rem;
+        flex-direction: column;
+        align-items: center; /* Center stacked buttons */
+        gap: 1.2rem;
     }
 
     .btn {
-        width: 80%; /* Make buttons wider */
+        width: 80%;
         max-width: 300px;
-        margin: 0 auto;
     }
 }
 
+/* For small mobile devices */
 @media (max-width: 480px) {
+    .hero-section {
+        padding: 0 1rem;
+    }
+    
     .hero-title {
         font-size: 2.2rem;
     }
-
+    
     .hero-tagline {
         font-size: 1.2rem;
+        min-height: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        width: 100%; /* Full width for smaller screens */
     }
 }
