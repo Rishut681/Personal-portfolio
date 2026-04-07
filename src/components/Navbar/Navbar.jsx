@@ -1,134 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import './Navbar.css';
+import { useEffect, useState } from "react"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+import { Menu, MoonStar, SunMedium, X } from "lucide-react"
+import { navItems, siteMeta } from "../../data/portfolioData"
+import MagneticButton from "../ui/MagneticButton"
 
-const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const [activeLink, setActiveLink] = useState('home');
+const Navbar = ({ theme, onThemeToggle }) => {
+  const prefersReducedMotion = useReducedMotion()
+  const [isOpen, setIsOpen] = useState(false)
+  const [activeLink, setActiveLink] = useState("home")
+  const [isScrolled, setIsScrolled] = useState(false)
 
-    // Handle scroll to change Navbar background
-    useEffect(() => {
-        const handleScroll = () => {
-            const offset = window.scrollY;
-            if (offset > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30)
+    }
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
-    // Set active link on click
-    const onUpdateActiveLink = (value) => {
-        setActiveLink(value);
-    };
+  useEffect(() => {
+    const sections = navItems.map((item) => document.getElementById(item.id)).filter(Boolean)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+        if (visible?.target?.id) {
+          setActiveLink(visible.target.id)
+        }
+      },
+      { threshold: [0.2, 0.5, 0.8], rootMargin: "-20% 0px -55% 0px" }
+    )
 
-    const navbarVariants = {
-        hidden: { y: -100, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                type: 'spring',
-                stiffness: 70,
-                damping: 15,
-                delay: 0.2,
-            },
-        },
-    };
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
 
-    const navLinkVariants = {
-        hidden: { opacity: 0, y: -20 },
-        visible: { opacity: 1, y: 0 },
-    };
+  return (
+    <motion.header
+      className={`navbar ${isScrolled ? "navbar--scrolled" : ""}`}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: -24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="navbar__inner">
+        <a href="#home" className="navbar__brand" data-magnetic="true">
+          <span className="navbar__brand-mark" />
+          <div>
+            <strong>{siteMeta.brand}</strong>
+            <small>{siteMeta.role}</small>
+          </div>
+        </a>
 
-    const mobileMenuVariants = {
-        open: {
-            x: 0,
-            transition: {
-                type: 'spring',
-                stiffness: 70,
-                damping: 15,
-                staggerChildren: 0.1,
-                delayChildren: 0.1,
-            },
-        },
-        closed: {
-            x: '100%',
-            transition: {
-                type: 'spring',
-                stiffness: 70,
-                damping: 15,
-            },
-        },
-    };
+        <nav className="navbar__nav" aria-label="Primary">
+          <ul className="navbar__links list-reset">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a href={item.href} className={item.id === activeLink ? "is-active" : ""} data-magnetic="true">
+                  {item.id === activeLink ? <motion.span className="navbar__activeblob" layoutId="nav-active-blob" /> : null}
+                  <span>{item.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-    return (
-        <motion.nav
-            className={`navbar ${scrolled ? 'scrolled' : ''}`}
-            variants={navbarVariants}
-            initial="hidden"
-            animate="visible"
-        >
-            <div className="navbar-container">
-                <div className="navbar-logo">
-                    <a href="#home" onClick={() => onUpdateActiveLink('home')}>Rishu.dev</a>
-                </div>
+        <div className="navbar__actions">
+          <button type="button" className="navbar__theme" onClick={onThemeToggle} data-magnetic="true" aria-label="Toggle theme">
+            {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
+          </button>
+          <MagneticButton href="#contact" variant="ghost" className="navbar__cta">
+            Hire Me
+          </MagneticButton>
+          <button
+            type="button"
+            className="navbar__toggle"
+            onClick={() => setIsOpen((current) => !current)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
 
-                <ul className="nav-links">
-                    {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => {
-                        const linkId = item.toLowerCase();
-                        return (
-                            <motion.li key={item} variants={navLinkVariants}>
-                                <a
-                                    href={`#${linkId}`}
-                                    className={activeLink === linkId ? 'active' : ''}
-                                    onClick={() => onUpdateActiveLink(linkId)}
-                                >
-                                    {item}
-                                </a>
-                            </motion.li>
-                        );
-                    })}
-                </ul>
-
-                <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
-                    {isOpen ? <X size={28} /> : <Menu size={28} />}
-                </div>
-
-                <motion.ul
-                    className={`mobile-nav-links ${isOpen ? 'open' : ''}`}
-                    variants={mobileMenuVariants}
-                    initial="closed"
-                    animate={isOpen ? "open" : "closed"}
+      <AnimatePresence>
+        {isOpen ? (
+          <motion.div
+            className="navbar-mobile"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="navbar-mobile__panel"
+              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, rotateY: 18, x: 40 }}
+              animate={{ opacity: 1, rotateY: 0, x: 0 }}
+              exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, rotateY: 18, x: 40 }}
+            >
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.id}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  initial={prefersReducedMotion ? false : { opacity: 0, rotateX: 14, y: 16 }}
+                  animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                  transition={{ delay: prefersReducedMotion ? 0 : index * 0.06 }}
                 >
-                    {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => {
-                        const linkId = item.toLowerCase();
-                        return (
-                            <motion.li
-                                key={item}
-                                variants={navLinkVariants}
-                                onClick={() => setIsOpen(false)}
-                            >
-                                <a
-                                    href={`#${linkId}`}
-                                    className={activeLink === linkId ? 'active' : ''}
-                                    onClick={() => onUpdateActiveLink(linkId)}
-                                >
-                                    {item}
-                                </a>
-                            </motion.li>
-                        );
-                    })}
-                </motion.ul>
-            </div>
-        </motion.nav>
-    );
-};
+                  {item.label}
+                </motion.a>
+              ))}
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </motion.header>
+  )
+}
 
-export default Navbar;
+export default Navbar

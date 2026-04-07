@@ -1,143 +1,78 @@
-import React from "react";
-import { motion } from "framer-motion";
-import "./AboutSection.css";
-
-const coreCompetencies = [
-  "Full-Stack Development",
-  "AI Integration",
-  "Scalable Architectures",
-  "Responsive Design",
-  "API Development",
-  "Database Management",
-];
+import { motion, useReducedMotion } from "framer-motion"
+import { aboutData } from "../../data/portfolioData"
+import SectionHeading from "../ui/SectionHeading"
+import { fadeUp, viewport } from "../../utils/motion"
 
 const AboutSection = () => {
-  // Variants for section
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 50,
-        damping: 10,
-        when: "beforeChildren",
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 70, damping: 15 },
-    },
-  };
+  const prefersReducedMotion = useReducedMotion()
 
   return (
-    <motion.section
-      className="about-section"
-      id="about"
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-    >
-      {/* Section Header */}
-      <div className="section-header">
-        <motion.h2
-          className="section-title"
-          initial={{ y: "100%", opacity: 0 }}
-          whileInView={{ y: "0%", opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          About Me
-        </motion.h2>
-        <motion.p variants={itemVariants} className="section-subtitle">
-          A Glimpse into My Journey & Passion
-        </motion.p>
-      </div>
+    <section className="about-section section-shell" id="about">
+      <SectionHeading eyebrow={aboutData.eyebrow} title={aboutData.title} description={aboutData.description} />
 
-      {/* Content Wrapper */}
-      <div className="about-content-wrapper">
-        {/* Text Container */}
-        <div className="about-text-container">
-          <motion.div variants={itemVariants} className="about-text">
-            <p>
-              I’m <span className="highlight">Rishu Raj</span>, a Full-Stack
-              Developer passionate about crafting scalable, intuitive, and
-              user-friendly digital experiences.
-            </p>
-            <p>
-              From responsive UIs in <strong>React</strong> to building robust{" "}
-              <strong>APIs & databases</strong>, I love bringing ideas to life
-              with clean code and modern practices.
-            </p>
-            <p>
-              Beyond coding, I’m a lifelong learner exploring{" "}
-              <strong>AI</strong>, solving real-world problems, and
-              collaborating on impactful projects.
-            </p>
-          </motion.div>
+      <motion.div
+        className="about-statsband"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewport}
+        variants={fadeUp(0, prefersReducedMotion)}
+      >
+        {aboutData.stats.map((item) => (
+          <article key={item.label}>
+            <strong>{item.value}</strong>
+            <span>{item.label}</span>
+          </article>
+        ))}
+      </motion.div>
 
-          {/* Core Competencies */}
-          <motion.div
-            variants={itemVariants}
-            className="about-competencies-container"
-          >
-            <h4 className="competencies-title">Core Competencies</h4>
-            <ul className="competencies-list">
-              {coreCompetencies.map((skill, index) => (
-                <li key={index}>
-                  <span className="competency-badge">{skill}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Quick Stats + Resume */}
-          <motion.div variants={itemVariants} className="about-stats">
-            <div className="stat-box">
-              <h3>10+</h3>
-              <p>Projects</p>
-            </div>
-            <div className="stat-box">
-              <h3>5+</h3>
-              <p>Certifications Earned</p>
-            </div>
-            <motion.a
-              href="https://www.dropbox.com/scl/fi/c5sn08luxssh6hmkiwano/Rishu-Resume.pdf?rlkey=yri27if3xnwwzjfa4oeqi6ksf&st=un2loezk&dl=1"
-              variants={itemVariants}
-              target="_blank"
-              className="resume-button"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Resume
-            </motion.a>
-          </motion.div>
-        </div>
-
-        {/* Image Container */}
+      <div className="about-editorial">
         <motion.div
-          variants={itemVariants}
-          className="about-image-container"
+          className="about-editorial__manifesto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp(0.05, prefersReducedMotion)}
         >
-          <motion.img
-            src="https://www.dropbox.com/scl/fi/kplelawhwnpnp1onmlbj8/IMG_20250621_111114113-Photoroom.png?rlkey=tiwsbpvgxs9k9aizniscw53vf&st=5e15jg0s&dl=1"
-            alt="Rishu Raj Profile"
-            className="about-profile-pic"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-};
+          <span className="about-editorial__eyebrow">Point of view</span>
+          <h3>{aboutData.spotlight}</h3>
 
-export default AboutSection;
+          <div className="about-editorial__copy">
+            {aboutData.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.aside
+          className="about-editorial__panel"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp(0.12, prefersReducedMotion)}
+        >
+          <div className="about-editorial__panel-head">
+            <span>How I work</span>
+            <h3>Art direction, interaction design, and frontend systems treated as one discipline.</h3>
+          </div>
+
+          <div className="about-editorial__practices">
+            {aboutData.practices.map((item) => (
+              <article key={item.title}>
+                <strong>{item.title}</strong>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="about-editorial__tags">
+            {aboutData.competencies.map((item) => (
+              <strong key={item}>{item}</strong>
+            ))}
+          </div>
+        </motion.aside>
+      </div>
+    </section>
+  )
+}
+
+export default AboutSection

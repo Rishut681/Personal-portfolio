@@ -1,220 +1,476 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
-import "./ProjectsSection.css";
-
-const projects = [
-  {
-    id: 1,
-    title: "Full-Stack E-commerce Platform",
-    description:
-      "A comprehensive e-commerce solution with product management, auth, secure checkout, and role-based access. Built with modern full-stack practices.",
-    image:
-      "https://www.dropbox.com/scl/fi/9yab27rbge04krykfidd3/ecommerce.png?rlkey=r7r81a3bwb23ewk3tme53zxnh&st=tc6o9nlg&dl=1",
-    githubLink: "https://github.com/Rishut681/E-commerce",
-    liveDemoLink: "https://nexa-ecommerce.vercel.app/",
-    tech: ["MERN", "JWT", "Stripe", "Cloud Storage"],
-  },
-  {
-    id: 2,
-    title: "AcciAlert – Smart City Surveillance",
-    description:
-      "AI-powered platform for real-time detection of accidents, crimes, and infrastructure issues to enhance urban safety and response.",
-    image:
-      "https://www.dropbox.com/scl/fi/ncohg76r6kvhuyb8c4cyv/cityzen.jpeg?rlkey=6fa8cwd4lkbbh8hd577yauufk&st=76t6t48o&dl=1",
-    githubLink: "https://github.com/Rishut681/Accialert",
-    liveDemoLink: "#",
-    tech: ["Python", "Flask", "Tensorflow", "OpenCV"],
-  },
-  {
-    id: 3,
-    title: "Crypto Dashboard",
-    description:
-      "Live market data, sparkline charts, and portfolio tracking with clean API integration and tidy data viz.",
-    image:
-      "https://www.dropbox.com/scl/fi/qiucm09djya0ntasxi31y/crypto.png?rlkey=u26tllw7b31f1c1jzd0d9e602&st=oh67pulz&dl=1",
-    githubLink: "https://github.com/Rishut681/my-crypto-dashboard",
-    liveDemoLink: "https://my-crypto-dashboard-pearl.vercel.app/",
-    tech: ["React", "Charts", "REST APIs", "Caching"],
-  },
-  {
-    id: 4,
-    title: "Helpdesk Ticketing System",
-    description:
-      "Robust ticket lifecycle, status tracking, and streamlined communication for customer support teams.",
-    image:
-      "https://www.dropbox.com/scl/fi/6dgh10hwvnlx0by078jfa/helpdesk.png?rlkey=9p1bjowxrqmkdipv5k0j7ofnp&st=63jr45zy&dl=1",
-    githubLink: "https://github.com/Rishut681/Helpdesk_app",
-    liveDemoLink: "https://helpdesksite.netlify.app/",
-    tech: ["Node", "Express", "MongoDB", "Auth"],
-  },
-  {
-    id: 5,
-    title: "My Personal Portfolio",
-    description:
-      "This portfolio—modern UI, responsive design, smooth animations, and polished UX.",
-    image:
-      "https://www.dropbox.com/scl/fi/81wn2o7sj2tevoc02zo6r/portfolio.png?rlkey=ajotsjioflvdnyx5hmuwcek1w&st=nlz44k08&dl=1",
-    githubLink: "https://github.com/Rishut681/Personal-portfolio",
-    liveDemoLink: "https://rishupersonalportfolio.netlify.app",
-    tech: ["React", "Framer Motion", "CSS", "A11y"],
-  },
-];
-
-const container = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { when: "beforeChildren", staggerChildren: 0.12, duration: 0.6 },
-  },
-};
-
-const cardVariant = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 16 } },
-};
+import { useEffect, useRef, useState } from "react"
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion"
+import { animated, to, useSpring } from "@react-spring/web"
+import { ArrowUpRight, Github, X } from "lucide-react"
+import { projectsData } from "../../data/portfolioData"
+import SectionHeading from "../ui/SectionHeading"
+import { fadeUp, viewport } from "../../utils/motion"
 
 const ProjectSection = () => {
+  const prefersReducedMotion = useReducedMotion()
+  const [activeProject, setActiveProject] = useState(null)
+  const [featuredProject, ...supportingProjects] = projectsData
+
   return (
-    <section className="projects-section" id="projects">
-      <motion.div
-        className="projects-header"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="section-title">Projects</h2>
-        <p className="section-subtitle">
-          A selection of things I’ve built—crafted with performance, DX, and clean architecture in mind.
-        </p>
-      </motion.div>
+    <section className="projects-section section-shell" id="projects">
+      <div className="projects-editorial-head">
+        <SectionHeading
+          eyebrow="Selected Work"
+          title="Case studies framed like an art-directed product exhibition."
+          description="The projects are rebuilt around hierarchy, image clarity, and stronger editorial rhythm so each one reads like a real product story instead of a generic portfolio tile."
+        />
 
-      <motion.div
-        className="projects-grid"
-        variants={container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        {projects.map((p, idx) => (
-          <ProjectCard key={p.id} project={p} idx={idx} />
-        ))}
-      </motion.div>
+        <aside className="projects-editorial-note">
+          <span>Curator note</span>
+          <p>
+            One flagship story leads the section, then the supporting work follows in a tighter bento-style composition with clearer
+            framing, richer proof, and a stronger sense of premium craft.
+          </p>
+        </aside>
+      </div>
+
+      <div className="projects-exhibition">
+        <FeaturedProject project={featuredProject} prefersReducedMotion={prefersReducedMotion} onOpen={() => setActiveProject(featuredProject)} />
+
+        <div className="projects-gallery">
+          {supportingProjects.map((project, index) => (
+            <SupportingProjectCard
+              key={project.id}
+              index={index + 2}
+              project={project}
+              prefersReducedMotion={prefersReducedMotion}
+              onOpen={() => setActiveProject(project)}
+            />
+          ))}
+        </div>
+      </div>
+
+      <AnimatePresence>{activeProject ? <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} /> : null}</AnimatePresence>
     </section>
-  );
-};
+  )
+}
 
-const ProjectCard = ({ project, idx }) => {
-  // Desktop parallax tilt on hover
-  const hoverMotion = {
-    scale: 1.015,
-    rotateX: 1.5,
-    rotateY: -1.5,
-    transition: { type: "spring", stiffness: 120, damping: 12 },
-  };
+const FeaturedProject = ({ project, prefersReducedMotion, onOpen }) => {
+  const [{ x, y, rotateX, rotateY }, api] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    rotateX: 0,
+    rotateY: 0,
+    config: { tension: 240, friction: 22 },
+  }))
+
+  const handleMove = (event) => {
+    if (prefersReducedMotion) {
+      return
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect()
+    const offsetX = event.clientX - rect.left - rect.width / 2
+    const offsetY = event.clientY - rect.top - rect.height / 2
+
+    api.start({
+      x: offsetX * 0.012,
+      y: offsetY * 0.01,
+      rotateX: (-offsetY / rect.height) * 3.4,
+      rotateY: (offsetX / rect.width) * 4.2,
+    })
+  }
+
+  const reset = () => api.start({ x: 0, y: 0, rotateX: 0, rotateY: 0 })
 
   return (
     <motion.article
-      className="project-card"
-      variants={cardVariant}
-      whileHover={hoverMotion}
-      whileTap={{ scale: 0.99 }}
-      style={{ "--i": idx }}
+      className="project-spotlight"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ ...viewport, amount: 0.16 }}
+      variants={fadeUp(0, prefersReducedMotion)}
     >
-      {/* Gradient frame */}
-      <div className="card-frame" />
-
-      {/* Image */}
-      <div className="project-media">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="project-image"
-          onError={(e) => {
-            e.currentTarget.src =
-              "https://placehold.co/1200x800/111827/e2e8f0?text=Image+Unavailable";
-          }}
-        />
-
-        {/* Desktop hover overlay */}
-        <motion.div
-          className="project-overlay"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.35 }}
-        >
-          <div className="overlay-gradient" />
-          <div className="overlay-content">
-            <p className="project-description">{project.description}</p>
-            <ul className="tech-tags">
-              {project.tech?.map((t) => (
-                <li key={t} className="tech-chip">
-                  {t}
-                </li>
-              ))}
-            </ul>
+      <animated.button
+        type="button"
+        className="project-spotlight__inner"
+        onClick={onOpen}
+        onMouseMove={handleMove}
+        onMouseLeave={reset}
+        data-magnetic="true"
+        style={{
+          transform: to(
+            [x, y, rotateX, rotateY],
+            (xValue, yValue, rx, ry) =>
+              `translate3d(${xValue}px, ${yValue}px, 0) perspective(1500px) rotateX(${rx}deg) rotateY(${ry}deg)`
+          ),
+        }}
+      >
+        <div className="project-spotlight__panel">
+          <div className="project-spotlight__topline">
+            <span>01 / flagship</span>
+            <small>{project.category}</small>
           </div>
-          {/* moving shine */}
-          <span className="shine" />
-        </motion.div>
 
-        {/* Mobile/Tablet: in-view description (shows while card is in viewport) */}
-        <motion.div
-          className="project-overlay mobile-inview"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ amount: 0.6, margin: "0px 0px -10% 0px", once: false }}
-          transition={{ duration: 0.35 }}
-        >
-          <div className="overlay-gradient" />
-          <div className="overlay-content">
-            <p className="project-description">{project.description}</p>
-            <ul className="tech-tags">
-              {project.tech?.map((t) => (
-                <li key={t} className="tech-chip">
-                  {t}
-                </li>
-              ))}
-            </ul>
+          <div className="project-spotlight__headline">
+            <h3>{project.title}</h3>
+            <p>{project.summary}</p>
           </div>
-        </motion.div>
-      </div>
 
-      {/* Info row */}
-      <div className="project-info">
-        <h3 className="project-title">{project.title}</h3>
-        <div className="project-links">
-          {project.githubLink && (
-            <motion.a
-              href={project.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-btn github-btn"
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Github size={18} />
-              GitHub
-            </motion.a>
-          )}
-          {project.liveDemoLink && (
-            <motion.a
-              href={project.liveDemoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-btn demo-btn"
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <ExternalLink size={18} />
-              Live Demo
-            </motion.a>
-          )}
+          <div className="project-spotlight__narrative">
+            <article>
+              <span>Role</span>
+              <p>{project.role}</p>
+            </article>
+            <article>
+              <span>Why it matters</span>
+              <p>{project.impact}</p>
+            </article>
+          </div>
+
+          <div className="project-spotlight__rail">
+            <div className="project-spotlight__tech">
+              {project.tech.slice(0, 5).map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+
+            <div className="project-spotlight__metrics">
+              {project.metrics.map((metric) => (
+                <div key={metric.label}>
+                  <strong>{metric.value}</strong>
+                  <span>{metric.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="project-spotlight__cta">
+            <span>Open full case study</span>
+            <ArrowUpRight size={18} />
+          </div>
         </div>
-      </div>
-    </motion.article>
-  );
-};
 
-export default ProjectSection;
+        <div className="project-spotlight__media">
+          <div className="project-spotlight__screen">
+            {project.image ? (
+              <img src={project.image} alt={project.title} loading="lazy" decoding="async" />
+            ) : (
+              <ProjectPoster project={project} className="project-spotlight__poster" />
+            )}
+          </div>
+
+          <div className="project-spotlight__badges" aria-hidden="true">
+            <article>
+              <span>Case study</span>
+              <strong>{project.beforeAfter.afterLabel}</strong>
+            </article>
+            <article>
+              <span>Outcome</span>
+              <strong>{project.metrics[0]?.value}</strong>
+            </article>
+          </div>
+        </div>
+      </animated.button>
+    </motion.article>
+  )
+}
+
+const SupportingProjectCard = ({ project, index, prefersReducedMotion, onOpen }) => {
+  const cardRef = useRef(null)
+  const isInView = useInView(cardRef, { once: true, amount: 0.3 })
+  const [{ x, y, rotateX, rotateY }, api] = useSpring(() => ({
+    x: 0,
+    y: 0,
+    rotateX: 0,
+    rotateY: 0,
+    config: { tension: 245, friction: 20 },
+  }))
+
+  const handleMove = (event) => {
+    if (prefersReducedMotion) {
+      return
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect()
+    const offsetX = event.clientX - rect.left - rect.width / 2
+    const offsetY = event.clientY - rect.top - rect.height / 2
+
+    api.start({
+      x: offsetX * 0.018,
+      y: offsetY * 0.014,
+      rotateX: (-offsetY / rect.height) * 5,
+      rotateY: (offsetX / rect.width) * 5.8,
+    })
+  }
+
+  const reset = () => api.start({ x: 0, y: 0, rotateX: 0, rotateY: 0 })
+
+  return (
+    <motion.article
+      ref={cardRef}
+      className={`project-card project-card--${project.accent}`}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ ...viewport, amount: 0.18 }}
+      variants={fadeUp(0, prefersReducedMotion)}
+    >
+      <animated.button
+        type="button"
+        className="project-card__inner"
+        onClick={onOpen}
+        onMouseMove={handleMove}
+        onMouseLeave={reset}
+        data-magnetic="true"
+        style={{
+          transform: to(
+            [x, y, rotateX, rotateY],
+            (xValue, yValue, rx, ry) =>
+              `translate3d(${xValue}px, ${yValue}px, 0) perspective(1300px) rotateX(${rx}deg) rotateY(${ry}deg)`
+          ),
+        }}
+      >
+        <div className="project-card__media">
+          <div className="project-card__frame">
+            {project.image ? <img src={project.image} alt={project.title} loading="lazy" decoding="async" /> : <ProjectPoster project={project} className="project-card__poster" />}
+          </div>
+        </div>
+
+        <div className="project-card__content">
+          <div className="project-card__topline">
+            <span>{String(index).padStart(2, "0")}</span>
+            <small>{project.category}</small>
+          </div>
+
+          <div className="project-card__headline">
+            <h3>{project.title}</h3>
+            <p>{project.summary}</p>
+          </div>
+
+          <div className="project-card__proof">
+            <article>
+              <span>Role</span>
+              <strong>{project.role}</strong>
+            </article>
+            <article>
+              <span>Impact</span>
+              <strong>{project.metrics[0]?.value}</strong>
+            </article>
+          </div>
+
+          <div className="project-card__tech">
+            {project.tech.slice(0, 4).map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+
+          <div className="project-card__footer">
+            <div className="project-card__metrics">
+              {project.metrics.slice(0, 2).map((metric) => (
+                <Metric key={metric.label} metric={metric} isInView={isInView} />
+              ))}
+            </div>
+
+            <div className="project-card__cta">
+              <span>Open case study</span>
+              <ArrowUpRight size={16} />
+            </div>
+          </div>
+        </div>
+      </animated.button>
+    </motion.article>
+  )
+}
+
+const Metric = ({ metric, isInView }) => {
+  const [displayValue, setDisplayValue] = useState(metric.value)
+
+  useEffect(() => {
+    if (!isInView) {
+      return undefined
+    }
+
+    const numeric = Number.parseInt(metric.value, 10)
+    if (Number.isNaN(numeric)) {
+      setDisplayValue(metric.value)
+      return undefined
+    }
+
+    let frame = 0
+    let animationFrame = 0
+    const totalFrames = 24
+
+    const tick = () => {
+      frame += 1
+      const next = Math.round((numeric * frame) / totalFrames)
+      setDisplayValue(metric.value.replace(String(numeric), String(next)))
+      if (frame < totalFrames) {
+        animationFrame = window.requestAnimationFrame(tick)
+      }
+    }
+
+    animationFrame = window.requestAnimationFrame(tick)
+    return () => window.cancelAnimationFrame(animationFrame)
+  }, [isInView, metric.value])
+
+  return (
+    <div>
+      <strong>{displayValue}</strong>
+      <span>{metric.label}</span>
+    </div>
+  )
+}
+
+const ProjectPoster = ({ project, className }) => (
+  <div className={className}>
+    <span>{project.category}</span>
+    <strong>{project.title}</strong>
+    <p>{project.tech.join(" / ")}</p>
+  </div>
+)
+
+const ProjectModal = ({ project, onClose }) => {
+  const [slider, setSlider] = useState(58)
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        onClose()
+      }
+    }
+
+    window.addEventListener("keydown", handleEscape)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", handleEscape)
+    }
+  }, [onClose])
+
+  return (
+    <motion.div className="project-modal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
+      <motion.div
+        className={`project-modal__panel project-modal__panel--${project.accent}`}
+        initial={{ opacity: 0, y: 28, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 28, scale: 0.98 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="project-modal__chrome">
+          <div className="project-modal__eyebrow">
+            <span>{project.category}</span>
+            <small>Case study view</small>
+          </div>
+
+          <button type="button" className="project-modal__close" onClick={onClose} aria-label="Close project">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="project-modal__masthead">
+          <div className="project-modal__lead">
+            <h3>{project.title}</h3>
+            <p>{project.summary}</p>
+          </div>
+
+          <div className="project-modal__links">
+            <a href={project.githubLink} target="_blank" rel="noreferrer">
+              <Github size={15} />
+              GitHub
+            </a>
+            {project.liveDemoLink ? (
+              <a href={project.liveDemoLink} target="_blank" rel="noreferrer">
+                <ArrowUpRight size={15} />
+                Live experience
+              </a>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="project-modal__hero">
+          <div className="project-modal__summaryrail">
+            <article>
+              <span>Role</span>
+              <p>{project.role}</p>
+            </article>
+            <article>
+              <span>Core shift</span>
+              <p>{project.beforeAfter.afterLabel}</p>
+            </article>
+            <article>
+              <span>Why it matters</span>
+              <p>{project.impact}</p>
+            </article>
+          </div>
+
+          <div className="project-modal__media">
+            {project.image ? <img src={project.image} alt={project.title} loading="lazy" decoding="async" /> : <ProjectPoster project={project} className="project-modal__poster" />}
+          </div>
+        </div>
+
+        <div className="project-modal__details">
+          <article>
+            <span>Problem</span>
+            <p>{project.problem}</p>
+          </article>
+          <article>
+            <span>Solution</span>
+            <p>{project.solution}</p>
+          </article>
+          <article>
+            <span>Outcome</span>
+            <p>{project.impact}</p>
+          </article>
+        </div>
+
+        <div className="project-modal__slider">
+          <div className="project-modal__slider-head">
+            <strong>Product shift</strong>
+            <span>Drag to compare the narrative change</span>
+          </div>
+
+          <div className="project-modal__comparison">
+            <div className="project-modal__comparison-before">
+              <h4>{project.beforeAfter.beforeLabel}</h4>
+              <p>Disconnected flows, lower clarity, and weaker product confidence.</p>
+            </div>
+
+            <div className="project-modal__comparison-after" style={{ clipPath: `inset(0 ${100 - slider}% 0 0)` }}>
+              <h4>{project.beforeAfter.afterLabel}</h4>
+              <p>Stronger narrative, more coherent workflows, and a more premium interaction model.</p>
+            </div>
+
+            <div className="project-modal__comparison-handle" style={{ left: `${slider}%` }} />
+          </div>
+
+          <input
+            type="range"
+            min="20"
+            max="80"
+            value={slider}
+            onChange={(event) => setSlider(Number(event.target.value))}
+            aria-label="Compare before and after"
+          />
+        </div>
+
+        <div className="project-modal__footer">
+          <div className="project-modal__tech">
+            {project.tech.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+
+          <div className="project-modal__metrics">
+            {project.metrics.map((metric) => (
+              <div key={metric.label}>
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
+export default ProjectSection

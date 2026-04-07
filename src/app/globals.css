@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "../index.css";
+@import "../App.css";
+@import "../components/ui/ui.css";
+@import "../components/Navbar/Navbar.css";
+@import "../components/Hero/HeroSection.css";
+@import "../components/About/AboutSection.css";
+@import "../components/Projects/ProjectsSection.css";
+@import "../components/Skills/SkillsSection.css";
+@import "../components/Experience/ExperienceSection.css";
+@import "../components/Testimonials/TestimonialsSection.css";
+@import "../components/Contact/ContactSection.css";
+@import "../components/Footer/Footer.css";
