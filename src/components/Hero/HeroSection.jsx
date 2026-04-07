@@ -1,160 +1,181 @@
-import React, { useCallback } from 'react';
-import { motion } from 'framer-motion';
-import { TypeAnimation } from 'react-type-animation';
-import Particles from 'react-tsparticles';
-import { loadSlim } from 'tsparticles-slim';
-import { FileText } from 'lucide-react'; // Icon for Resume button
-import './HeroSection.css';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import gsap from "gsap"
+import { ArrowDown, ArrowUpRight, Download, MoveRight } from "lucide-react"
+import { heroData } from "../../data/portfolioData"
+import MagneticButton from "../ui/MagneticButton"
+
+const HeroScene = lazy(() => import("./HeroScene"))
 
 const HeroSection = () => {
-    const particlesInit = useCallback(async (engine) => {
-        await loadSlim(engine);
-    }, []);
+  const sectionRef = useRef(null)
+  const titleRef = useRef(null)
+  const cardsRef = useRef([])
+  const prefersReducedMotion = useReducedMotion()
+  const [pointer, setPointer] = useState({ x: 50, y: 50 })
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  })
+  const stageY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"])
+  const copyY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"])
+  const proofOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.36])
 
-    const particlesLoaded = useCallback(async (container) => {
-        console.log(container);
-    }, []);
+  useEffect(() => {
+    if (prefersReducedMotion || !titleRef.current || !sectionRef.current) {
+      return undefined
+    }
 
-    const heroVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: 'spring',
-                stiffness: 70,
-                damping: 15,
-                delay: 0.8,
-                when: 'beforeChildren',
-                staggerChildren: 0.3
-            }
-        }
-    };
+    const ctx = gsap.context(() => {
+      gsap.from(titleRef.current.querySelectorAll("span"), {
+        yPercent: 120,
+        opacity: 0,
+        duration: 1.1,
+        stagger: 0.08,
+        ease: "power4.out",
+        delay: 0.32,
+      })
 
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.5
-            }
-        }
-    };
+      gsap.from(".hero-cinematic__meta span, .hero-cinematic__copy > *, .hero-cinematic__dock > *", {
+        opacity: 0,
+        y: 22,
+        duration: 0.9,
+        stagger: 0.08,
+        ease: "power3.out",
+        delay: 0.1,
+      })
 
-    const buttonVariants = {
-        hidden: { opacity: 0, scale: 0.8 },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            transition: {
-                type: 'spring',
-                stiffness: 100,
-                damping: 15
-            }
-        }
-    };
+      gsap.from(cardsRef.current, {
+        opacity: 0,
+        y: 30,
+        scale: 0.94,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: "power3.out",
+        delay: 0.45,
+      })
+    }, sectionRef)
 
-    return (
-        <section className="hero-section" id="home">
-            <Particles
-                id="tsparticles"
-                init={particlesInit}
-                loaded={particlesLoaded}
-                className="particles-bg"
-                options={{
-                    fullScreen: false,
-                    background: {
-                        color: { value: "#0f172a" }
-                    },
-                    fpsLimit: 120,
-                    particles: {
-                        number: { value: 80, density: { enable: true, value_area: 800 } },
-                        color: { value: "#8b5cf6" },
-                        shape: { type: "circle" },
-                        opacity: { value: 0.5, random: true, anim: { enable: false } },
-                        size: { value: 3, random: true, anim: { enable: true, speed: 4, size_min: 0.3, sync: false } },
-                        links: { enable: true, distance: 150, color: "#94a3b8", opacity: 0.4, width: 1 },
-                        move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out", bounce: false },
-                    },
-                    interactivity: {
-                        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
-                        modes: { grab: { distance: 140, links: { opacity: 1 } }, push: { particles_nb: 4 } }
-                    },
-                    retina_detect: true,
-                }}
-            />
-            <div className="hero-content-wrapper">
-                <motion.div
-                    className="hero-content"
-                    variants={heroVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    <motion.h1 variants={itemVariants} className="hero-title">
-                      <span className='hero-hl'>Hi, I'm </span>
-                      <span className="hero-highlight">Rishu Raj</span>
-                    </motion.h1>
+    return () => ctx.revert()
+  }, [prefersReducedMotion])
 
-                    <motion.div variants={itemVariants} className="hero-tagline">
-                        <TypeAnimation
-                            sequence={[
-                                'I build modern web experiences.',
-                                1500,
-                                'A Full-Stack Developer.',
-                                1500,
-                                'MERN Stack enthusiast.',
-                                1500,
-                                'Bringing digital ideas to life.',
-                                1500,
-                            ]}
-                            wrapper="span"
-                            cursor={true}
-                            repeat={Infinity}
-                            speed={50}
-                            deleteSpeed={20}
-                        />
-                    </motion.div>
+  const floatingCards = useMemo(() => heroData.floatingCards, [])
 
-                    <motion.p variants={itemVariants} className="hero-description">
-                        I specialize in creating robust and scalable web applications, from front-end user interfaces to back-end systems, with a focus on intuitive and elegant design.
-                    </motion.p>
+  const handlePointerMove = (event) => {
+    if (!sectionRef.current || prefersReducedMotion) {
+      return
+    }
 
-                    <motion.div variants={itemVariants} className="hero-buttons">
-                        <motion.a
-                            href="#projects"
-                            className="btn primary-btn"
-                            variants={buttonVariants}
-                            whileHover={{ scale: 1.05, boxShadow: "0 8px 20px rgba(0,0,0,0.2)" }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            View My Work
-                        </motion.a>
-                        <motion.a
-                            href="#contact"
-                            className="btn secondary-btn"
-                            variants={buttonVariants}
-                            whileHover={{ scale: 1.05, boxShadow: "0 8px 20px rgba(0,0,0,0.1)" }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Contact Me
-                        </motion.a>
-                        <motion.a
-                            href="https://www.dropbox.com/scl/fi/c5sn08luxssh6hmkiwano/Rishu-Resume.pdf?rlkey=yri27if3xnwwzjfa4oeqi6ksf&st=un2loezk&dl=1"
-                            className="btn resume-btn"
-                            variants={buttonVariants}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <FileText size={20} /> My Resume
-                        </motion.a>
-                    </motion.div>
-                </motion.div>
+    const bounds = sectionRef.current.getBoundingClientRect()
+    const x = ((event.clientX - bounds.left) / bounds.width) * 100
+    const y = ((event.clientY - bounds.top) / bounds.height) * 100
+    setPointer({ x, y })
+  }
+
+  return (
+    <section className="hero-section section-shell" id="home" ref={sectionRef} onPointerMove={handlePointerMove}>
+      <div className="hero-cinematic">
+        <div className="hero-cinematic__backdrop" aria-hidden="true">
+          <div
+            className="hero-cinematic__spotlight"
+            style={{
+              background: `radial-gradient(circle at ${pointer.x}% ${pointer.y}%, rgba(99, 230, 255, 0.22), rgba(99, 230, 255, 0) 28%)`,
+            }}
+          />
+          <div className="hero-cinematic__mesh" />
+          <div className="hero-cinematic__particles" />
+        </div>
+
+        <div className="hero-cinematic__content">
+          <motion.div className="hero-cinematic__copy-shell" style={{ y: copyY }}>
+            <div className="hero-cinematic__meta">
+              <span>{heroData.eyebrow}</span>
+              <span>{heroData.trustLine}</span>
             </div>
-        </section>
-    );
-};
 
-export default HeroSection;
+            <div className="hero-cinematic__copy">
+              <h1 ref={titleRef}>
+                {heroData.title.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </h1>
+              <p>{heroData.description}</p>
+            </div>
+          </motion.div>
+
+          <motion.div className="hero-cinematic__stage" style={{ y: stageY }}>
+            <Suspense fallback={<div className="hero-cinematic__stage-fallback" aria-hidden="true" />}>
+              <HeroScene />
+            </Suspense>
+
+            <div className="hero-cinematic__frame" aria-hidden="true">
+              <span>Realtime mood lighting</span>
+              <strong>Depth, glass, atmosphere</strong>
+            </div>
+
+            <div className="hero-cinematic__floating">
+              {floatingCards.map((card, index) => (
+                <motion.article
+                  key={card.title}
+                  ref={(node) => {
+                    cardsRef.current[index] = node
+                  }}
+                  className={`hero-cinematic__card hero-cinematic__card--${index + 1}`}
+                  whileHover={prefersReducedMotion ? undefined : { y: -6, rotateZ: index % 2 === 0 ? -1 : 1 }}
+                >
+                  <span>{card.title}</span>
+                  <p>{card.body}</p>
+                </motion.article>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div className="hero-cinematic__dock" style={{ opacity: proofOpacity }}>
+            <div className="hero-cinematic__actions">
+              <MagneticButton href={heroData.primaryCta.href} variant="primary" icon={<ArrowUpRight size={16} />}>
+                {heroData.primaryCta.label}
+              </MagneticButton>
+              <MagneticButton href={heroData.secondaryCta.href} variant="secondary" icon={<MoveRight size={16} />}>
+                {heroData.secondaryCta.label}
+              </MagneticButton>
+              <MagneticButton
+                href={heroData.resumeCta.href}
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost"
+                icon={<Download size={16} />}
+              >
+                {heroData.resumeCta.label}
+              </MagneticButton>
+            </div>
+
+            <div className="hero-cinematic__stats">
+              {heroData.quickStats.map((item) => (
+                <div key={item.label}>
+                  <strong>{item.value}</strong>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div className="hero-cinematic__proof" style={{ opacity: proofOpacity }}>
+          {heroData.proofStrip.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </motion.div>
+
+        <a className="hero-cinematic__scrollcue" href="#projects" data-magnetic="true">
+          <span>Scroll to explore</span>
+          <strong>
+            Projects first
+            <ArrowDown size={15} />
+          </strong>
+        </a>
+      </div>
+    </section>
+  )
+}
+
+export default HeroSection

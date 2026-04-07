@@ -1,25 +1,194 @@
 @import "./vars.css";
 
-.App {
-  background-color: var(--color-bg);
-  width: 100%;
-  height: 100;
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-surface-950);
+  color: var(--color-text-primary);
+  overflow-x: clip;
+  transition:
+    background-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.page-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 140;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  background: var(--color-surface-800);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.app-ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: clip;
+}
+
+.app-ambient__gradient,
+.app-ambient__orb,
+.app-ambient__mesh,
+.app-ambient__noise {
+  position: absolute;
+  inset: 0;
+}
+
+.app-ambient__gradient {
+  background:
+    radial-gradient(circle at 15% 8%, rgba(99, 230, 255, 0.2), rgba(99, 230, 255, 0) 24%),
+    radial-gradient(circle at 80% 15%, rgba(255, 141, 87, 0.16), rgba(255, 141, 87, 0) 22%),
+    radial-gradient(circle at 60% 70%, rgba(184, 207, 101, 0.12), rgba(184, 207, 101, 0) 20%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 28%);
+  filter: blur(30px);
+}
+
+.app-ambient__orb {
+  inset: 18% auto auto 58%;
+  width: min(44vw, 40rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(99, 230, 255, 0.26), rgba(99, 230, 255, 0) 36%),
+    radial-gradient(circle at 64% 68%, rgba(255, 141, 87, 0.18), rgba(255, 141, 87, 0) 38%),
+    rgba(255, 255, 255, 0.01);
+  filter: blur(58px);
+  opacity: 0.78;
+}
+
+.app-ambient__mesh {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 92px 92px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.24), transparent 76%);
+  opacity: 0.22;
+}
+
+.app-ambient__noise {
+  opacity: 0.06;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35) 0 0.6px, transparent 0.8px),
+    radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.26) 0 0.6px, transparent 0.8px),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.18) 0 0.5px, transparent 0.7px);
+  background-size: 180px 180px, 240px 240px, 130px 130px;
+  mix-blend-mode: soft-light;
+}
+
+.section-shell {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 2rem), var(--max-width));
+  margin-inline: auto;
+  padding-block: clamp(5.5rem, 8vw, 8.5rem);
+}
+
+.section-transition {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 2rem), 94vw);
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  padding: 0.4rem 0 1.2rem;
+}
+
+.section-transition::before,
+.section-transition::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: min(34vw, 28rem);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(99, 230, 255, 0.45), rgba(255, 255, 255, 0));
+}
+
+.section-transition::before {
+  left: 0;
+}
+
+.section-transition::after {
+  right: 0;
+}
+
+.section-transition span {
+  position: relative;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at top left, rgba(99, 230, 255, 0.12), transparent 28%),
+    rgba(10, 12, 17, 0.6);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  backdrop-filter: blur(18px);
+}
+
+.surface-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-surface);
+  backdrop-filter: blur(18px);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text-secondary);
+  font-size: 0.84rem;
+}
+
+.list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
-/* In src/index.css or src/App.css (or your main global stylesheet) */
+@media (max-width: 640px) {
+  .section-shell {
+    width: min(calc(100% - 1.25rem), var(--max-width));
+  }
 
-html {
-    scroll-behavior: smooth; /* This is the magic line! */
-}
+  .section-transition {
+    width: min(calc(100% - 1.25rem), 94vw);
+  }
 
-/* Ensure body has no default margin/padding, good practice */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', 'Arial', sans-serif; /* Your chosen font */
-    background-color: #0f172a; /* Your background color */
-    color: #cbd5e1;
-    line-height: 1.6;
-    overflow-x: hidden;
+  .section-transition::before,
+  .section-transition::after {
+    width: 20vw;
+  }
 }

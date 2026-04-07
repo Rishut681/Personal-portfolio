@@ -1,116 +1,250 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Github, Linkedin, CheckCircle } from "lucide-react";
-import "./ContactSection.css";
-import emailjs from "emailjs-com";
+import { useState } from "react"
+import emailjs from "emailjs-com"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+import { CheckCircle2, Github, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react"
+import { budgetMarks, contactData, contactFormConfig, siteMeta } from "../../data/portfolioData"
+import MagneticButton from "../ui/MagneticButton"
+import { fadeUp, staggerContainer, viewport } from "../../utils/motion"
+
+const initialState = {
+  from_name: "",
+  from_email: "",
+  project_type: "portfolio",
+  budget_range: 3000,
+  message: "",
+}
+
+const formatBudget = (value) => {
+  if (value >= 10000) {
+    return "$10k+"
+  }
+
+  return `$${(value / 1000).toFixed(value % 1000 === 0 ? 0 : 1)}k`
+}
 
 const ContactSection = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const prefersReducedMotion = useReducedMotion()
+  const [formData, setFormData] = useState(initialState)
+  const [status, setStatus] = useState("idle")
+  const [errorMessage, setErrorMessage] = useState("")
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    emailjs
-      .sendForm(
-        "service_ig7k8e8",        // ✅ Your Service ID
-        "template_1daujbk",      // ✅ Your Template ID
-        e.target, 
-        "sDCF2m2kH6koizTOF"      // ✅ Your Public Key
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setFormData((current) => ({ ...current, [name]: value }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    setStatus("submitting")
+    setErrorMessage("")
+
+    try {
+      await emailjs.send(
+        contactFormConfig.serviceId,
+        contactFormConfig.templateId,
+        formData,
+        contactFormConfig.publicKey
       )
-      .then(
-        (result) => {
-          setSubmitted(true);
-          console.log("SUCCESS!", result.text);
-        },
-        (error) => {
-          console.error("FAILED...", error.text);
-          alert("Failed to send message. Try again later.");
-        }
-      );
-  };
+
+      setStatus("success")
+      setFormData(initialState)
+    } catch {
+      setStatus("error")
+      setErrorMessage("The message could not be sent right now. Email or LinkedIn works as a backup.")
+    }
+  }
 
   return (
-    <section className="contact-section" id="contact">
-      <div className="contact-header">
-        <h2 className="contact-title">Let’s Connect</h2>
-        <p className="contact-description">
-          Whether you’re looking to collaborate, hire, or just say hi, feel free to drop me a message.
-          I’ll get back to you as soon as possible!
-        </p>
-      </div>
+    <section className="contact-section section-shell" id="contact">
+      <motion.div
+        className="contact-slab"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewport}
+        variants={staggerContainer(0.1, 0.08, prefersReducedMotion)}
+      >
+        <motion.div className="contact-slab__intro" variants={fadeUp(0, prefersReducedMotion)}>
+          <span className="contact-slab__eyebrow">{contactData.eyebrow}</span>
+          <h2>{contactData.title}</h2>
+          <p>{contactData.description}</p>
 
-      <div className="contact-container">
-        {/* Contact Info Card */}
-        <motion.div
-          className="contact-info-card"
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="info-title">Contact Information</h3>
-          <ul className="info-list">
-            <li><Mail size={18} /> rishut681@gmail.com</li>
-            <li><Phone size={18} /> +91 8882905323</li>
-            <li><MapPin size={18} /> New Delhi, India</li>
-          </ul>
+          <div className="contact-slab__assurance">
+            <article>
+              <span>Clarity first</span>
+              <strong>Clear goals, strong references, and honest feedback lead to the best build.</strong>
+            </article>
+            <article>
+              <span>Premium delivery</span>
+              <strong>Motion, responsiveness, and maintainable implementation are treated as one system.</strong>
+            </article>
+          </div>
 
-          <div className="social-links">
-            <a href="https://github.com/Rishut681" target="_blank" rel="noreferrer">
-              <Github size={22} />
+          <div className="contact-slab__lines">
+            <div>
+              <span>Response</span>
+              <strong>{contactData.responsePromise}</strong>
+            </div>
+            <div>
+              <span>Availability</span>
+              <strong>{contactData.availability}</strong>
+            </div>
+          </div>
+
+          <div className="contact-slab__contactlist">
+            <a href={`mailto:${siteMeta.email}`}>
+              <Mail size={16} />
+              {siteMeta.email}
             </a>
-            <a href="https://www.linkedin.com/in/rishu-raj-322637253/" target="_blank" rel="noreferrer">
-              <Linkedin size={22} />
+            <a href={`tel:${siteMeta.phone}`}>
+              <Phone size={16} />
+              {siteMeta.phone}
             </a>
+            <span>
+              <MapPin size={16} />
+              {siteMeta.location}
+            </span>
+          </div>
+
+          <div className="contact-slab__socials">
+            <a href={siteMeta.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+              <Github size={18} />
+            </a>
+            <a href={siteMeta.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <Linkedin size={18} />
+            </a>
+          </div>
+
+          <div className="contact-slab__services">
+            {contactData.serviceFocus.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
           </div>
         </motion.div>
 
-        {/* Contact Form */}
-        <motion.form
-          className="contact-form"
-          initial={{ opacity: 0, x: 60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          onSubmit={handleSubmit}
-        >
-          {submitted ? (
-            <motion.div
-              className="success-message"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              <CheckCircle size={28} color="#22c55e" />
-              <p>Message Sent Successfully!</p>
-            </motion.div>
-          ) : (
-            <>
-              <div className="form-group">
-                <input type="text" name="from_name" required />
-                <label>Your Name</label>
-              </div>
-              <div className="form-group">
-                <input type="email" name="from_email" required />
-                <label>Your Email</label>
-              </div>
-              <div className="form-group">
-                <textarea name="message" rows="5" required></textarea>
-                <label>Your Message</label>
-              </div>
-              <motion.button
-                type="submit"
-                className="submit-btn"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Send Message
-              </motion.button>
-            </>
-          )}
-        </motion.form>
-      </div>
-    </section>
-  );
-};
+        <motion.form className="contact-slab__form" onSubmit={handleSubmit} variants={fadeUp(0.08, prefersReducedMotion)}>
+          <div className="contact-slab__form-head">
+            <span>Project inquiry</span>
+            <p>Share the brief and I’ll shape the right direction, interaction approach, and build scope.</p>
+          </div>
 
-export default ContactSection;
+          <div className="contact-slab__grid">
+            <label>
+              <span>Name</span>
+              <input
+                type="text"
+                name="from_name"
+                value={formData.from_name}
+                onChange={handleChange}
+                placeholder="Your name"
+                required
+              />
+            </label>
+            <label>
+              <span>Email</span>
+              <input
+                type="email"
+                name="from_email"
+                value={formData.from_email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                required
+              />
+            </label>
+          </div>
+
+          <label>
+            <span>Project type</span>
+            <select
+              name="project_type"
+              value={formData.project_type}
+              onChange={handleChange}
+              required
+            >
+              <option value="portfolio">Portfolio / personal brand</option>
+              <option value="marketing">Marketing site / launch page</option>
+              <option value="product">Product UI / dashboard</option>
+              <option value="frontend">Frontend implementation partner</option>
+            </select>
+          </label>
+
+          <label className="contact-slab__budget">
+            <div className="contact-slab__budget-head">
+              <span>Budget range</span>
+              <strong>{formatBudget(Number(formData.budget_range))}</strong>
+            </div>
+            <input
+              type="range"
+              name="budget_range"
+              min="1500"
+              max="10000"
+              step="500"
+              value={formData.budget_range}
+              onChange={handleChange}
+            />
+            <div className="contact-slab__budget-marks" aria-hidden="true">
+              {budgetMarks.map((mark) => (
+                <span key={mark.value}>{mark.label}</span>
+              ))}
+            </div>
+          </label>
+
+          <label>
+            <span>Brief</span>
+            <textarea
+              name="message"
+              rows="6"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Share the goal, timeline, desired feel, and what success should look like."
+              required
+            />
+            <small className="contact-slab__counter">{formData.message.length}/600</small>
+          </label>
+
+          <div className="contact-slab__actions">
+            <div className="contact-slab__submitline">
+              <MagneticButton
+                type="submit"
+                variant="primary"
+                icon={status === "submitting" ? null : <Send size={16} strokeWidth={2.1} />}
+                disabled={status === "submitting"}
+              >
+                {status === "submitting" ? "Sending..." : "Send inquiry"}
+              </MagneticButton>
+              <p className="contact-slab__note">Best results come from a clear brief, rough goals, and a feel reference.</p>
+            </div>
+          </div>
+
+          <AnimatePresence mode="wait">
+            {status === "success" ? (
+              <motion.div
+                key="success"
+                className="contact-slab__feedback contact-slab__feedback--success"
+                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                <CheckCircle2 size={18} />
+                <span>Message sent. I'll get back to you soon.</span>
+              </motion.div>
+            ) : null}
+
+            {status === "error" ? (
+              <motion.div
+                key="error"
+                className="contact-slab__feedback contact-slab__feedback--error"
+                initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                <span>{errorMessage}</span>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </motion.form>
+      </motion.div>
+    </section>
+  )
+}
+
+export default ContactSection

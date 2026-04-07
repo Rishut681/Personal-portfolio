@@ -1,91 +1,75 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
-import "./Footer.css";
+import { motion, useReducedMotion } from "framer-motion"
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react"
+import { footerData, navItems, siteMeta } from "../../data/portfolioData"
+import MagneticButton from "../ui/MagneticButton"
+import { fadeUp, staggerContainer } from "../../utils/motion"
 
 const Footer = () => {
+  const prefersReducedMotion = useReducedMotion()
+
   return (
     <footer className="footer">
-      {/* Wave Divider (separated and pushed up) */}
-      <div className="footer-wave">
-        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-          <path
-            fill="url(#waveGradient)"
-            d="M0,192L60,186.7C120,181,240,171,360,176C480,181,600,203,720,202.7C840,203,960,181,1080,181.3C1200,181,1320,203,1380,213.3L1440,224L1440,0L0,0Z"
-          />
-          <defs>
-            <linearGradient id="waveGradient" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0%" stopColor="#0ea5e9" />
-              <stop offset="100%" stopColor="#9333ea" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-
-      {/* Main Content */}
       <motion.div
-        className="footer-container"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        className="footer__inner section-shell"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.35 }}
+        variants={staggerContainer(0.1, 0.08, prefersReducedMotion)}
       >
-        <motion.h2
-          className="footer-logo"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          Rishu Raj
-        </motion.h2>
+        <motion.div className="footer__cta surface-card" variants={fadeUp(0, prefersReducedMotion)}>
+          <div>
+            <span className="footer__kicker">{footerData.kicker}</span>
+            <h2>{footerData.title}</h2>
+            <p>{footerData.blurb}</p>
+          </div>
 
-        <p className="footer-tagline">
-          Crafting digital experiences with{" "}
-          <span className="highlight">creativity</span> &{" "}
-          <span className="highlight">innovation</span>.
-        </p>
+          <MagneticButton href="#contact" variant="primary" icon={<ArrowUpRight size={16} strokeWidth={2.2} />}>
+            Book a project
+          </MagneticButton>
+        </motion.div>
 
-        <ul className="footer-links">
-          {["About", "Projects", "Skills", "Contact"].map((link, idx) => (
-            <motion.li
-              key={idx}
-              whileHover={{ scale: 1.2 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <a href={`#${link.toLowerCase()}`} className="glow-link">
-                {link}
+        <motion.div className="footer__bottom" variants={fadeUp(0.06, prefersReducedMotion)}>
+          <div className="footer__brand">
+            <span>{siteMeta.brand}</span>
+            <p>{siteMeta.role}</p>
+            <small>{siteMeta.availability}</small>
+          </div>
+
+          <nav className="footer__nav" aria-label="Footer">
+            {navItems.map((item) => (
+              <a key={item.id} href={item.href}>
+                {item.label}
               </a>
-            </motion.li>
-          ))}
-        </ul>
+            ))}
+          </nav>
 
-        <div className="footer-socials">
-          {[
-            { icon: <Mail size={24} />, link: "mailto:rishut681@gmail.com" },
-            { icon: <Github size={24} />, link: "https://github.com/Rishut681" },
-            {
-              icon: <Linkedin size={24} />,
-              link: "https://www.linkedin.com/in/rishu-raj-322637253/",
-            },
-          ].map((item, idx) => (
-            <motion.a
-              key={idx}
-              href={item.link}
-              target="_blank"
-              rel="noreferrer"
-              whileHover={{ y: -6, scale: 1.2 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              {item.icon}
-            </motion.a>
-          ))}
-        </div>
+          <div className="footer__socials">
+            <a href={`mailto:${siteMeta.email}`} aria-label="Email">
+              <Mail size={16} />
+            </a>
+            <a href={siteMeta.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+              <Github size={16} />
+            </a>
+            <a href={siteMeta.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <Linkedin size={16} />
+            </a>
+          </div>
+        </motion.div>
+
+        <motion.div className="footer__tags" variants={fadeUp(0.08, prefersReducedMotion)}>
+          <span>Portfolio systems</span>
+          <span>Motion-led interfaces</span>
+          <span>Frontend architecture</span>
+          <span>Interactive product stories</span>
+        </motion.div>
+
+        <motion.div className="footer__legal" variants={fadeUp(0.1, prefersReducedMotion)}>
+          <span>{siteMeta.name}</span>
+          <span>&copy; {new Date().getFullYear()} All rights reserved.</span>
+        </motion.div>
       </motion.div>
-
-      <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Rishu Raj • Designed with ❤️ + ⚡</p>
-      </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

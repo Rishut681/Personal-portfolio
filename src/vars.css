@@ -1,9 +1,69 @@
 :root {
-    /* Colours */
-    --color-text: #fff;
-    --color-primary: #576cbc;
-    --color-secondary: #19376d;
-    --color-dark: #0b2447;
-    --color-bg: #04152d;
-  
-  }
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+
+  --color-surface-950: #08090d;
+  --color-surface-900: #0f1116;
+  --color-surface-850: #14171d;
+  --color-surface-800: #1a1f27;
+  --color-surface-700: #232935;
+
+  --color-text-primary: #f5efe5;
+  --color-text-secondary: #c2bbb0;
+  --color-text-muted: #8d887f;
+
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(99, 230, 255, 0.26);
+  --color-border-warm: rgba(255, 141, 87, 0.25);
+
+  --color-cyan: #63e6ff;
+  --color-cyan-soft: rgba(99, 230, 255, 0.16);
+  --color-ember: #ff8d57;
+  --color-lime: #b8cf65;
+  --color-metal: #d9c5a0;
+  --color-success: #7add93;
+  --color-danger: #ff8f86;
+
+  --gradient-accent: linear-gradient(135deg, #63e6ff 0%, #ff8d57 55%, #b8cf65 100%);
+  --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  --gradient-stroke: linear-gradient(120deg, rgba(99, 230, 255, 0.7), rgba(255, 141, 87, 0.7), rgba(184, 207, 101, 0.55));
+
+  --shadow-surface: 0 24px 60px rgba(0, 0, 0, 0.28);
+  --shadow-card: 0 16px 36px rgba(0, 0, 0, 0.22);
+  --shadow-glow: 0 0 48px rgba(99, 230, 255, 0.16);
+
+  --radius-sm: 1rem;
+  --radius-md: 1.5rem;
+  --radius-lg: 2rem;
+  --radius-xl: 2.4rem;
+  --radius-pill: 999px;
+
+  --duration-fast: 220ms;
+  --duration-base: 520ms;
+  --duration-slow: 860ms;
+
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --nav-height: 5.6rem;
+  --max-width: 82rem;
+}
+
+:root[data-theme="light"] {
+  --color-surface-950: #f5f0e8;
+  --color-surface-900: #efe9dd;
+  --color-surface-850: #e7dfd2;
+  --color-surface-800: #ddd4c6;
+  --color-surface-700: #cbbfab;
+
+  --color-text-primary: #151820;
+  --color-text-secondary: #433d35;
+  --color-text-muted: #716a61;
+
+  --color-border: rgba(21, 24, 32, 0.11);
+  --color-border-strong: rgba(0, 121, 168, 0.26);
+  --color-border-warm: rgba(191, 91, 46, 0.22);
+
+  --shadow-surface: 0 24px 48px rgba(32, 28, 22, 0.12);
+  --shadow-card: 0 16px 28px rgba(32, 28, 22, 0.1);
+  --shadow-glow: 0 0 42px rgba(99, 230, 255, 0.12);
+}

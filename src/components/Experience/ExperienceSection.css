@@ -1,0 +1,124 @@
+.experience-section {
+  display: grid;
+  gap: 2rem;
+}
+
+.experience-trackwrap {
+  position: relative;
+}
+
+.experience-track {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(18rem, 28rem);
+  gap: 1.2rem;
+  padding: 5rem 0 4rem;
+  align-items: center;
+}
+
+.experience-rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(99, 230, 255, 0.35), rgba(255, 141, 87, 0.3), rgba(184, 207, 101, 0.28));
+}
+
+.experience-card {
+  position: relative;
+  min-height: 22rem;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    rgba(10, 12, 17, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+}
+
+.experience-card--upper {
+  transform: translateY(-3.2rem);
+}
+
+.experience-card--lower {
+  transform: translateY(3.2rem);
+}
+
+.experience-card__dot {
+  position: absolute;
+  left: 1.4rem;
+  top: calc(100% + 1.45rem);
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--color-cyan);
+  box-shadow: 0 0 18px rgba(99, 230, 255, 0.45);
+}
+
+.experience-card--lower .experience-card__dot {
+  top: auto;
+  bottom: calc(100% + 1.45rem);
+}
+
+.experience-card span {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.experience-card h3,
+.experience-card p {
+  margin: 0;
+}
+
+.experience-card h3 {
+  margin-top: 1rem;
+  font-size: 1.9rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.experience-card p {
+  margin-top: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.experience-progress {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .experience-track {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    padding: 0;
+  }
+
+  .experience-rail {
+    display: none;
+  }
+
+  .experience-card--upper,
+  .experience-card--lower {
+    transform: none;
+  }
+
+  .experience-card__dot {
+    display: none;
+  }
+
+  .experience-progress {
+    display: none;
+  }
+}
