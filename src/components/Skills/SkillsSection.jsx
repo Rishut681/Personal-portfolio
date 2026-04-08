@@ -1,29 +1,74 @@
 import { useMemo, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
-import { skillsData, workflowPillars } from "../../data/portfolioData"
+import {
+  Atom,
+  Bot,
+  Box,
+  Boxes,
+  Code2,
+  Cuboid,
+  Database,
+  PenTool,
+  Server,
+  Sparkles,
+  Wind,
+} from "lucide-react"
+import { skillsData } from "../../data/portfolioData"
 import SectionHeading from "../ui/SectionHeading"
-import { fadeUp, viewport } from "../../utils/motion"
 
 const positions = [
-  { x: 14, y: 22 },
-  { x: 30, y: 12 },
-  { x: 50, y: 18 },
-  { x: 70, y: 12 },
-  { x: 84, y: 24 },
-  { x: 18, y: 54 },
-  { x: 38, y: 46 },
-  { x: 56, y: 56 },
-  { x: 74, y: 44 },
-  { x: 88, y: 62 },
-  { x: 28, y: 78 },
-  { x: 48, y: 72 },
-  { x: 64, y: 84 },
-  { x: 82, y: 78 },
+  { x: 12, y: 30, size: "small" },
+  { x: 23, y: 20, size: "large" },
+  { x: 36, y: 30, size: "large" },
+  { x: 50, y: 20, size: "large" },
+  { x: 64, y: 30, size: "large" },
+  { x: 77, y: 20, size: "small" },
+  { x: 18, y: 48, size: "large" },
+  { x: 32, y: 58, size: "large" },
+  { x: 46, y: 48, size: "large" },
+  { x: 60, y: 58, size: "large" },
+  { x: 74, y: 48, size: "large" },
+  { x: 23, y: 75, size: "small" },
+  { x: 37, y: 84, size: "large" },
+  { x: 51, y: 75, size: "large" },
+  { x: 65, y: 84, size: "large" },
+  { x: 79, y: 75, size: "small" },
+  { x: 9, y: 57, size: "mini" },
+  { x: 88, y: 57, size: "mini" },
 ]
+
+const connections = [
+  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5],
+  [0, 6], [1, 6], [1, 7], [2, 7], [2, 8], [3, 8], [3, 9], [4, 9], [4, 10], [5, 10],
+  [6, 11], [6, 12], [7, 12], [8, 13], [9, 14], [10, 15],
+  [11, 12], [12, 13], [13, 14], [14, 15],
+  [16, 0], [16, 6], [17, 5], [17, 10],
+]
+
+const iconByLabel = {
+  React: Atom,
+  "Next.js": Box,
+  "Framer Motion": Sparkles,
+  "Three.js": Cuboid,
+  WebGL: Wind,
+  GSAP: Sparkles,
+  "Tailwind CSS": Wind,
+  TypeScript: Code2,
+  "Node.js": Server,
+  Prisma: Database,
+  GraphQL: Boxes,
+  MongoDB: Database,
+  PostgreSQL: Database,
+  "OpenAI API": Bot,
+  "Design Systems": PenTool,
+  "UI/UX": PenTool,
+  "3D Modeling": Cuboid,
+  "Interaction Design": PenTool,
+}
 
 const SkillsSection = () => {
   const prefersReducedMotion = useReducedMotion()
-  const [activeSkill, setActiveSkill] = useState(skillsData[0])
+  const [activeSkill, setActiveSkill] = useState("Next.js")
   const constellation = useMemo(
     () =>
       skillsData.map((skill, index) => ({
@@ -36,79 +81,70 @@ const SkillsSection = () => {
   return (
     <section className="skills-section section-shell" id="skills">
       <SectionHeading
-        eyebrow="Skills visualization"
-        title="A live constellation of the tools and practices behind the work."
-        description="Instead of another static logo grid, this section maps the stack as a network of related capabilities: frontend craft, motion, backend structure, and AI-aware product thinking."
+        eyebrow="Advanced stack"
+        title={
+          <>
+            A constellation of advanced skills
+            <br />
+            and a motion-driven timeline.
+          </>
+        }
+        description="The stack is shaped like a connected field of craft, engineering, and interaction systems instead of a flat wall of tools."
+        align="center"
+        className="skills-section__heading"
       />
 
-      <div className="skills-ecosystem">
-        <div className="skills-constellation">
-          <svg className="skills-constellation__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            {constellation.slice(0, -1).map((skill, index) => (
-              <line
-                key={skill.label}
-                x1={skill.x}
-                y1={skill.y}
-                x2={constellation[index + 1].x}
-                y2={constellation[index + 1].y}
-              />
-            ))}
-          </svg>
+      <div className="skills-constellation">
+        <div className="skills-constellation__glow skills-constellation__glow--left" aria-hidden="true" />
+        <div className="skills-constellation__glow skills-constellation__glow--right" aria-hidden="true" />
 
-          {constellation.map((skill, index) => (
+        <div className="skills-constellation__stars" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+
+        <svg className="skills-constellation__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          {connections.map(([from, to]) => (
+            <line
+              key={`${from}-${to}`}
+              x1={constellation[from].x}
+              y1={constellation[from].y}
+              x2={constellation[to].x}
+              y2={constellation[to].y}
+            />
+          ))}
+        </svg>
+
+        {constellation.map((skill, index) => {
+          const Icon = iconByLabel[skill.label] ?? Sparkles
+          return (
             <motion.button
               key={skill.label}
               type="button"
-              className={`skills-node skills-node--${skill.group.toLowerCase()} ${activeSkill.label === skill.label ? "is-active" : ""}`}
+              className={`skills-node skills-node--${skill.size} ${activeSkill === skill.label ? "is-active" : ""}`}
               style={{ left: `${skill.x}%`, top: `${skill.y}%` }}
-              initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.8 }}
+              initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.85 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={viewport}
-              transition={{ delay: prefersReducedMotion ? 0 : index * 0.04 }}
-              whileHover={prefersReducedMotion ? undefined : { scale: 1.08, y: -4 }}
-              onMouseEnter={() => setActiveSkill(skill)}
-              onFocus={() => setActiveSkill(skill)}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: prefersReducedMotion ? 0 : index * 0.03, duration: 0.45 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -8, scale: 1.04 }}
+              onMouseEnter={() => setActiveSkill(skill.label)}
+              onFocus={() => setActiveSkill(skill.label)}
             >
-              <strong>{skill.label}</strong>
-              <span>{skill.group}</span>
+              <span className="skills-node__inner">
+                <Icon size={skill.size === "mini" ? 14 : 18} strokeWidth={1.8} />
+                <strong>{skill.label}</strong>
+                <small>{skill.group}</small>
+              </span>
             </motion.button>
-          ))}
-        </div>
-
-        <motion.aside
-          className="skills-detail"
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          variants={fadeUp(0.06, prefersReducedMotion)}
-        >
-          <span>Current focus</span>
-          <h3>{activeSkill.label}</h3>
-          <p>
-            {activeSkill.label} sits inside the {activeSkill.group.toLowerCase()} layer of the stack and supports the kind of
-            immersive product work shown throughout this portfolio.
-          </p>
-          <div className="skills-detail__meta">
-            <strong>{activeSkill.group}</strong>
-            <small>Hover or focus other nodes to inspect the constellation.</small>
-          </div>
-        </motion.aside>
-      </div>
-
-      <div className="skills-principles">
-        {workflowPillars.map((item) => (
-          <motion.article
-            key={item.title}
-            className="skills-principles__item"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewport}
-            variants={fadeUp(0, prefersReducedMotion)}
-          >
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </motion.article>
-        ))}
+          )
+        })}
       </div>
     </section>
   )

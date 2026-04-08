@@ -88,10 +88,6 @@ button {
   background-clip: padding-box;
 }
 
-:root[data-theme="light"] {
-  color-scheme: light;
-}
-
 ::selection {
   background: rgba(99, 230, 255, 0.28);
   color: var(--color-text-primary);

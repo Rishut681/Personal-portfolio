@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-import { Menu, MoonStar, SunMedium, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { navItems, siteMeta } from "../../data/portfolioData"
 import MagneticButton from "../ui/MagneticButton"
 
-const Navbar = ({ theme, onThemeToggle }) => {
+const Navbar = () => {
   const prefersReducedMotion = useReducedMotion()
   const [isOpen, setIsOpen] = useState(false)
   const [activeLink, setActiveLink] = useState("home")
@@ -66,9 +66,6 @@ const Navbar = ({ theme, onThemeToggle }) => {
         </nav>
 
         <div className="navbar__actions">
-          <button type="button" className="navbar__theme" onClick={onThemeToggle} data-magnetic="true" aria-label="Toggle theme">
-            {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
-          </button>
           <MagneticButton href="#contact" variant="ghost" className="navbar__cta">
             Hire Me
           </MagneticButton>
@@ -85,12 +82,7 @@ const Navbar = ({ theme, onThemeToggle }) => {
 
       <AnimatePresence>
         {isOpen ? (
-          <motion.div
-            className="navbar-mobile"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <motion.div className="navbar-mobile" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <motion.div
               className="navbar-mobile__panel"
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, rotateY: 18, x: 40 }}

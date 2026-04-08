@@ -1,11 +1,11 @@
 import type { ReactNode } from "react"
 import type { Metadata, Viewport } from "next"
-import { Instrument_Serif, Manrope } from "next/font/google"
+import { Cormorant_Garamond, Manrope } from "next/font/google"
 import "./globals.css"
 
-const instrumentSerif = Instrument_Serif({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["500", "600"],
   style: ["normal", "italic"],
   variable: "--font-display",
 })
@@ -48,7 +48,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${instrumentSerif.variable} ${manrope.variable}`}>{children}</body>
+      <body className={`${cormorantGaramond.variable} ${manrope.variable}`}>{children}</body>
     </html>
   )
 }
