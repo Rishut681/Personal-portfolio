@@ -1,7 +1,7 @@
 import { useState } from "react"
 import emailjs from "emailjs-com"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-import { CheckCircle2, Github, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react"
+import { CheckCircle2, Mail, MapPin, Send } from "lucide-react"
 import { budgetMarks, contactData, contactFormConfig, siteMeta } from "../../data/portfolioData"
 import MagneticButton from "../ui/MagneticButton"
 import { fadeUp, staggerContainer, viewport } from "../../utils/motion"
@@ -50,7 +50,7 @@ const ContactSection = () => {
       setFormData(initialState)
     } catch {
       setStatus("error")
-      setErrorMessage("The message could not be sent right now. Email or LinkedIn works as a backup.")
+      setErrorMessage("The message could not be sent right now. Email works as a backup.")
     }
   }
 
@@ -68,17 +68,6 @@ const ContactSection = () => {
           <h2>{contactData.title}</h2>
           <p>{contactData.description}</p>
 
-          <div className="contact-slab__assurance">
-            <article>
-              <span>Clarity first</span>
-              <strong>Clear goals, strong references, and honest feedback lead to the best build.</strong>
-            </article>
-            <article>
-              <span>Premium delivery</span>
-              <strong>Motion, responsiveness, and maintainable implementation are treated as one system.</strong>
-            </article>
-          </div>
-
           <div className="contact-slab__lines">
             <div>
               <span>Response</span>
@@ -95,36 +84,17 @@ const ContactSection = () => {
               <Mail size={16} />
               {siteMeta.email}
             </a>
-            <a href={`tel:${siteMeta.phone}`}>
-              <Phone size={16} />
-              {siteMeta.phone}
-            </a>
             <span>
               <MapPin size={16} />
               {siteMeta.location}
             </span>
-          </div>
-
-          <div className="contact-slab__socials">
-            <a href={siteMeta.github} target="_blank" rel="noreferrer" aria-label="GitHub">
-              <Github size={18} />
-            </a>
-            <a href={siteMeta.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <Linkedin size={18} />
-            </a>
-          </div>
-
-          <div className="contact-slab__services">
-            {contactData.serviceFocus.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
           </div>
         </motion.div>
 
         <motion.form className="contact-slab__form" onSubmit={handleSubmit} variants={fadeUp(0.08, prefersReducedMotion)}>
           <div className="contact-slab__form-head">
             <span>Project inquiry</span>
-            <p>Share the brief and I’ll shape the right direction, interaction approach, and build scope.</p>
+            <p>Share the brief and I'll shape the right direction, interaction approach, and build scope.</p>
           </div>
 
           <div className="contact-slab__grid">
@@ -154,12 +124,7 @@ const ContactSection = () => {
 
           <label>
             <span>Project type</span>
-            <select
-              name="project_type"
-              value={formData.project_type}
-              onChange={handleChange}
-              required
-            >
+            <select name="project_type" value={formData.project_type} onChange={handleChange} required>
               <option value="portfolio">Portfolio / personal brand</option>
               <option value="marketing">Marketing site / launch page</option>
               <option value="product">Product UI / dashboard</option>
@@ -196,6 +161,7 @@ const ContactSection = () => {
               value={formData.message}
               onChange={handleChange}
               placeholder="Share the goal, timeline, desired feel, and what success should look like."
+              maxLength="600"
               required
             />
             <small className="contact-slab__counter">{formData.message.length}/600</small>
@@ -211,7 +177,6 @@ const ContactSection = () => {
               >
                 {status === "submitting" ? "Sending..." : "Send inquiry"}
               </MagneticButton>
-              <p className="contact-slab__note">Best results come from a clear brief, rough goals, and a feel reference.</p>
             </div>
           </div>
 

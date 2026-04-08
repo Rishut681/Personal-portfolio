@@ -1,24 +1,113 @@
 .skills-section {
   display: grid;
-  gap: 2rem;
+  gap: 2.3rem;
+  padding-bottom: 3.5rem;
 }
 
-.skills-ecosystem {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
-  gap: 1rem;
+.skills-section__heading {
+  justify-items: center;
+  text-align: center;
+  max-width: 50rem;
+  margin-inline: auto;
+}
+
+.skills-section__heading .section-heading__title {
+  max-width: 13ch;
 }
 
 .skills-constellation {
   position: relative;
-  min-height: 42rem;
-  border-radius: 2rem;
+  min-height: 44rem;
+  border-radius: 2.2rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
-    radial-gradient(circle at 20% 20%, rgba(99, 230, 255, 0.12), transparent 24%),
-    radial-gradient(circle at 80% 70%, rgba(255, 141, 87, 0.1), transparent 24%),
-    rgba(10, 12, 17, 0.5);
+    radial-gradient(circle at 50% 46%, rgba(114, 168, 255, 0.18), transparent 18%),
+    radial-gradient(circle at 26% 22%, rgba(99, 230, 255, 0.14), transparent 24%),
+    radial-gradient(circle at 76% 22%, rgba(162, 124, 255, 0.18), transparent 24%),
+    linear-gradient(180deg, rgba(12, 14, 24, 0.96), rgba(8, 9, 14, 0.98));
   overflow: hidden;
+  box-shadow: var(--shadow-surface);
+}
+
+.skills-constellation::before {
+  content: "";
+  position: absolute;
+  inset: 8% 10%;
+  background:
+    linear-gradient(135deg, rgba(161, 211, 255, 0.14), transparent 20%),
+    linear-gradient(315deg, rgba(170, 127, 255, 0.14), transparent 18%);
+  filter: blur(20px);
+  opacity: 0.82;
+}
+
+.skills-constellation__glow {
+  position: absolute;
+  width: 16rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(62px);
+  opacity: 0.38;
+}
+
+.skills-constellation__glow--left {
+  left: 10%;
+  top: 12%;
+  background: rgba(99, 230, 255, 0.34);
+}
+
+.skills-constellation__glow--right {
+  right: 12%;
+  bottom: 12%;
+  background: rgba(168, 124, 255, 0.28);
+}
+
+.skills-constellation__stars span {
+  position: absolute;
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 50%;
+  background: rgba(242, 248, 255, 0.95);
+  box-shadow: 0 0 16px rgba(173, 228, 255, 0.5);
+}
+
+.skills-constellation__stars span:nth-child(1) {
+  left: 11%;
+  top: 21%;
+}
+
+.skills-constellation__stars span:nth-child(2) {
+  left: 20%;
+  top: 68%;
+}
+
+.skills-constellation__stars span:nth-child(3) {
+  left: 39%;
+  top: 14%;
+}
+
+.skills-constellation__stars span:nth-child(4) {
+  left: 58%;
+  top: 20%;
+}
+
+.skills-constellation__stars span:nth-child(5) {
+  right: 25%;
+  top: 36%;
+}
+
+.skills-constellation__stars span:nth-child(6) {
+  right: 13%;
+  bottom: 22%;
+}
+
+.skills-constellation__stars span:nth-child(7) {
+  left: 47%;
+  bottom: 14%;
+}
+
+.skills-constellation__stars span:nth-child(8) {
+  right: 8%;
+  top: 55%;
 }
 
 .skills-constellation__lines {
@@ -29,155 +118,143 @@
 }
 
 .skills-constellation__lines line {
-  stroke: rgba(255, 255, 255, 0.08);
-  stroke-width: 0.35;
+  stroke: rgba(175, 212, 255, 0.2);
+  stroke-width: 0.28;
+  filter: drop-shadow(0 0 5px rgba(118, 190, 255, 0.15));
 }
 
 .skills-node {
   position: absolute;
-  transform: translate(-50%, -50%);
-  display: grid;
-  gap: 0.3rem;
-  min-width: 9rem;
-  padding: 0.9rem 1rem;
-  border-radius: 1.2rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(12, 14, 20, 0.6);
-  backdrop-filter: blur(18px);
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 6rem;
+  height: 6rem;
+  padding: 0;
+  border-radius: 1.35rem;
+  border: 1px solid rgba(170, 214, 255, 0.22);
+  background:
+    linear-gradient(180deg, rgba(199, 224, 255, 0.12), rgba(100, 73, 181, 0.18)),
+    rgba(20, 18, 42, 0.5);
   color: var(--color-text-primary);
-  text-align: left;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -12px 24px rgba(18, 12, 42, 0.24),
+    0 18px 40px rgba(42, 23, 96, 0.3),
+    0 0 28px rgba(99, 230, 255, 0.08);
+  backdrop-filter: blur(22px);
   cursor: pointer;
 }
 
+.skills-node::before {
+  content: "";
+  position: absolute;
+  inset: 0.55rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0.55;
+}
+
+.skills-node::after {
+  content: "";
+  position: absolute;
+  inset: 0.8rem 0.9rem auto;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+  opacity: 0.5;
+}
+
+.skills-node--large {
+  width: 7.15rem;
+  height: 7.15rem;
+}
+
+.skills-node--mini {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
 .skills-node.is-active {
-  border-color: rgba(99, 230, 255, 0.26);
-  transform: translate(-50%, -50%) scale(1.04);
+  border-color: rgba(196, 232, 255, 0.46);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -12px 24px rgba(18, 12, 42, 0.26),
+    0 18px 44px rgba(42, 23, 96, 0.42),
+    0 0 44px rgba(132, 177, 255, 0.24);
 }
 
-.skills-node strong,
-.skills-principles__item h3 {
-  font-size: 1rem;
+.skills-node__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.28rem;
+  padding: 0.8rem;
+  transform: rotate(-45deg);
+}
+
+.skills-node__inner svg {
+  color: #7ddfff;
+  filter: drop-shadow(0 0 10px rgba(125, 223, 255, 0.22));
+}
+
+.skills-node strong {
+  display: block;
+  max-width: 7ch;
+  font-size: 0.84rem;
+  line-height: 1.08;
   letter-spacing: -0.03em;
+  text-align: center;
 }
 
-.skills-node span {
+.skills-node--mini strong {
+  display: none;
+}
+
+.skills-node small {
   color: var(--color-text-muted);
-  font-size: 0.78rem;
+  font-size: 0.62rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.skills-node--frontend {
-  box-shadow: 0 0 26px rgba(99, 230, 255, 0.12);
-}
-
-.skills-node--motion {
-  box-shadow: 0 0 26px rgba(255, 141, 87, 0.12);
-}
-
-.skills-node--backend {
-  box-shadow: 0 0 26px rgba(184, 207, 101, 0.12);
-}
-
-.skills-node--design,
-.skills-node--ai {
-  box-shadow: 0 0 26px rgba(217, 197, 160, 0.12);
-}
-
-.skills-detail {
-  align-self: stretch;
-  display: grid;
-  align-content: end;
-  gap: 0.9rem;
-  padding: 1.5rem;
-  border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    radial-gradient(circle at top left, rgba(255, 141, 87, 0.14), transparent 22%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02)),
-    rgba(10, 12, 17, 0.64);
-}
-
-.skills-detail > span {
-  color: var(--color-text-muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.skills-detail h3,
-.skills-detail p,
-.skills-detail__meta {
-  margin: 0;
-}
-
-.skills-detail h3 {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4vw, 4rem);
-  line-height: 0.92;
-  letter-spacing: -0.06em;
-}
-
-.skills-detail p,
-.skills-detail__meta small {
-  color: var(--color-text-secondary);
-  line-height: 1.8;
-}
-
-.skills-detail__meta {
-  display: grid;
-  gap: 0.3rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.skills-principles {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.skills-principles__item {
-  padding: 1.2rem 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.skills-principles__item h3,
-.skills-principles__item p {
-  margin: 0;
-}
-
-.skills-principles__item p {
-  margin-top: 0.6rem;
-  color: var(--color-text-secondary);
-  line-height: 1.8;
+.skills-node--mini small {
+  display: none;
 }
 
 @media (max-width: 900px) {
-  .skills-ecosystem {
-    grid-template-columns: 1fr;
-  }
-
   .skills-constellation {
-    min-height: 34rem;
-  }
-
-  .skills-principles {
-    grid-template-columns: 1fr;
+    min-height: 38rem;
   }
 }
 
 @media (max-width: 720px) {
-  .skills-node {
-    min-width: 7.6rem;
-    padding: 0.7rem 0.8rem;
+  .skills-section {
+    padding-bottom: 2rem;
+  }
+
+  .skills-constellation {
+    min-height: 30rem;
+  }
+
+  .skills-node,
+  .skills-node--large {
+    width: 4.7rem;
+    height: 4.7rem;
+  }
+
+  .skills-node--mini {
+    width: 2.8rem;
+    height: 2.8rem;
   }
 
   .skills-node strong {
-    font-size: 0.88rem;
+    font-size: 0.66rem;
   }
 
-  .skills-node span {
-    font-size: 0.68rem;
+  .skills-node small {
+    font-size: 0.5rem;
   }
 }

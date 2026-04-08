@@ -8,54 +8,47 @@ const AboutSection = () => {
 
   return (
     <section className="about-section section-shell" id="about">
-      <SectionHeading eyebrow={aboutData.eyebrow} title={aboutData.title} description={aboutData.description} />
+      <SectionHeading
+        eyebrow={aboutData.eyebrow}
+        title={aboutData.title}
+        description={aboutData.description}
+        className="about-section__heading"
+      />
 
-      <motion.div
-        className="about-statsband"
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewport}
-        variants={fadeUp(0, prefersReducedMotion)}
-      >
-        {aboutData.stats.map((item) => (
-          <article key={item.label}>
-            <strong>{item.value}</strong>
-            <span>{item.label}</span>
-          </article>
-        ))}
-      </motion.div>
-
-      <div className="about-editorial">
-        <motion.div
-          className="about-editorial__manifesto"
+      <div className="about-layout">
+        <motion.article
+          className="about-manifesto"
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          variants={fadeUp(0.05, prefersReducedMotion)}
+          variants={fadeUp(0.06, prefersReducedMotion)}
         >
-          <span className="about-editorial__eyebrow">Point of view</span>
+          <span>Point of view</span>
           <h3>{aboutData.spotlight}</h3>
-
-          <div className="about-editorial__copy">
+          <div className="about-manifesto__copy">
             {aboutData.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-        </motion.div>
+        </motion.article>
 
-        <motion.aside
-          className="about-editorial__panel"
+        <motion.div
+          className="about-sidebar"
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
           variants={fadeUp(0.12, prefersReducedMotion)}
         >
-          <div className="about-editorial__panel-head">
-            <span>How I work</span>
-            <h3>Art direction, interaction design, and frontend systems treated as one discipline.</h3>
+          <div className="about-statsband">
+            {aboutData.stats.map((item) => (
+              <article key={item.label}>
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
+              </article>
+            ))}
           </div>
 
-          <div className="about-editorial__practices">
+          <div className="about-practices">
             {aboutData.practices.map((item) => (
               <article key={item.title}>
                 <strong>{item.title}</strong>
@@ -63,13 +56,7 @@ const AboutSection = () => {
               </article>
             ))}
           </div>
-
-          <div className="about-editorial__tags">
-            {aboutData.competencies.map((item) => (
-              <strong key={item}>{item}</strong>
-            ))}
-          </div>
-        </motion.aside>
+        </motion.div>
       </div>
     </section>
   )

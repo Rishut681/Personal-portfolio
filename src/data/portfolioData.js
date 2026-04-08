@@ -22,30 +22,19 @@ export const navItems = [
   { label: "Projects", href: "#projects", id: "projects" },
   { label: "Skills", href: "#skills", id: "skills" },
   { label: "Timeline", href: "#timeline", id: "timeline" },
-  { label: "Testimonials", href: "#testimonials", id: "testimonials" },
   { label: "Contact", href: "#contact", id: "contact" },
 ]
 
 export const heroData = {
-  eyebrow: "Museum-grade portfolio experience",
   title: [
     "I craft",
     "cinematic interfaces",
     "for products that want to feel unforgettable.",
   ],
-  trustLine:
-    "Strategy, motion, 3D atmosphere, and production-ready frontend execution in one end-to-end workflow.",
   description:
-    "This portfolio is designed like a digital exhibition: scroll-driven storytelling, tactile interactions, and premium UI systems shaped to convert freelance clients who care about both taste and implementation depth.",
-  quickStats: [
-    { value: "4", label: "Featured product stories" },
-    { value: "3D", label: "Interactive stage layers" },
-    { value: "60fps", label: "Targeted motion performance" },
-  ],
-  proofStrip: ["Next.js", "GSAP ScrollTrigger", "Three.js", "Framer Motion", "React Spring"],
+    "Frontend engineering, interaction design, and motion-led product surfaces built to help ambitious brands and products feel more distinct.",
   primaryCta: { label: "Start a project", href: "#contact" },
   secondaryCta: { label: "Explore projects", href: "#projects" },
-  resumeCta: { label: "Resume", href: resumeUrl },
   floatingCards: [
     { title: "Narrative-led", body: "Case studies unfold like product stories, not stacked screenshots." },
     { title: "Motion systems", body: "Every interaction is designed to feel deliberate, elastic, and alive." },
@@ -57,39 +46,31 @@ export const aboutData = {
   eyebrow: "Creative engineering",
   title: "I design like a storyteller and build like an owner.",
   description:
-    "The work lives in the overlap between bold visual direction and dependable implementation, so the final result feels distinctive without becoming fragile.",
+    "I focus on product interfaces that feel premium at first glance, then keep earning trust through clarity, structure, and production-ready frontend execution.",
   spotlight:
-    "I care most about interfaces that earn attention fast, then keep proving their value through clarity, motion discipline, and real frontend depth.",
+    "The best work happens where visual direction, interaction design, and serious frontend craft are treated as one discipline instead of separate layers.",
   stats: [
     { value: "4", label: "Flagship case studies" },
     { value: "3D + Motion", label: "Experience design bias" },
     { value: "End-to-end", label: "Build ownership" },
   ],
   paragraphs: [
-    "I like product surfaces that feel immersive from the first second but still communicate value clearly. That balance matters more than decoration.",
-    "Most of my best work happens where experience design, frontend systems, and product thinking overlap: landing pages, SaaS experiences, interactive tools, and branded portfolio environments.",
-    "My process is collaborative and highly visual, but the build quality stays serious. Motion, performance, maintainability, and accessibility are part of the design conversation from the start.",
-  ],
-  competencies: [
-    "Immersive product interfaces",
-    "3D-enhanced web experiences",
-    "High-conversion landing systems",
-    "React architecture",
-    "Applied AI product UX",
-    "Performance-focused implementation",
+    "I care about interfaces that catch attention quickly but never lose usability once the motion settles and the details need to carry the experience.",
+    "That usually means working across product positioning, layout systems, interaction design, and frontend architecture together so the final result feels cohesive.",
+    "My goal is simple: make the work feel intentional, modern, and strong enough to ship without becoming fragile after launch.",
   ],
   practices: [
     {
-      title: "Narrative before ornament",
-      text: "Every screen should guide attention, explain value, and create momentum before any visual effect starts asking for attention.",
+      title: "Clear visual hierarchy",
+      text: "Every section should guide attention fast and keep the message readable before any effect starts competing with the content.",
     },
     {
-      title: "Motion with product purpose",
-      text: "Animations should reinforce hierarchy, depth, and trust, not just make a layout feel busy or expensive.",
+      title: "Motion with purpose",
+      text: "Animation should reinforce structure, depth, and confidence instead of becoming decoration that weakens the product story.",
     },
     {
-      title: "Build quality that survives launch",
-      text: "The final interface has to stay modular, performant, and editable, because premium visuals only matter when the foundation is serious.",
+      title: "Frontend built to ship",
+      text: "The final build has to stay modular, responsive, and maintainable because premium UI only matters when the engineering holds up.",
     },
   ],
 }
@@ -215,77 +196,45 @@ export const projectsData = [
 
 export const skillsData = [
   { label: "React", group: "Frontend" },
-  { label: "TypeScript", group: "Frontend" },
-  { label: "Three.js", group: "Motion" },
-  { label: "GSAP", group: "Motion" },
-  { label: "Framer Motion", group: "Motion" },
-  { label: "Prisma", group: "Backend" },
-  { label: "Node.js", group: "Backend" },
   { label: "Next.js", group: "Frontend" },
+  { label: "Framer Motion", group: "Motion" },
+  { label: "Three.js", group: "Motion" },
+  { label: "WebGL", group: "Motion" },
+  { label: "GSAP", group: "Motion" },
+  { label: "Tailwind CSS", group: "Frontend" },
+  { label: "TypeScript", group: "Frontend" },
+  { label: "Node.js", group: "Backend" },
+  { label: "Prisma", group: "Backend" },
+  { label: "GraphQL", group: "Backend" },
   { label: "MongoDB", group: "Backend" },
   { label: "PostgreSQL", group: "Backend" },
-  { label: "OpenAI", group: "AI" },
-  { label: "NextAuth", group: "Backend" },
-  { label: "Tailwind", group: "Frontend" },
-  { label: "UI Systems", group: "Design" },
-]
-
-export const workflowPillars = [
-  {
-    title: "Design with conviction",
-    text: "Every section should feel intentionally art-directed instead of assembled from familiar portfolio templates.",
-  },
-  {
-    title: "Animate with meaning",
-    text: "Motion should reveal hierarchy, reinforce depth, and reward interaction without becoming visual noise.",
-  },
-  {
-    title: "Build for delivery",
-    text: "The codebase has to stay modular, editable, and resilient enough for real production work after the visual wow fades.",
-  },
+  { label: "OpenAI API", group: "AI" },
+  { label: "Design Systems", group: "Design" },
+  { label: "UI/UX", group: "Design" },
+  { label: "3D Modeling", group: "Motion" },
+  { label: "Interaction Design", group: "Design" },
 ]
 
 export const experienceData = [
   {
-    year: "2026",
+    year: "2024",
     title: "Wandrly Product Build",
-    body: "Built a modern AI travel product with collaboration roles, shareable trip workspaces, and real planning utilities beyond itinerary generation.",
+    body: "Built a modern trip-planning product shaped around itinerary depth, collaboration roles, and a more complete planning workspace.",
   },
   {
     year: "2025",
     title: "AI Tooling Experiments",
-    body: "Explored developer-facing AI product interfaces and workflow design through prototypes like DevCompanion.",
+    body: "Explored developer-facing AI workflows and contextual assistance patterns through prototypes like DevCompanion.",
   },
   {
-    year: "2025",
+    year: "2026",
     title: "Commerce and Dashboard Systems",
-    body: "Focused on structured UX systems across storefronts, admin logic, and support workflow interfaces.",
+    body: "Focused on structured interface systems across storefronts, internal dashboards, and support workflow products.",
   },
   {
-    year: "Ongoing",
+    year: "2027+",
     title: "Motion-Driven Frontend Craft",
-    body: "Pushing deeper into interactive storytelling, 3D atmosphere, and premium web presentation systems.",
-  },
-]
-
-export const testimonialData = [
-  {
-    quote:
-      "Rishu combines strong visual instinct with real implementation depth. The work never feels like surface-level design.",
-    name: "Founder Perspective",
-    role: "Product-led startup",
-  },
-  {
-    quote:
-      "What stands out is the ability to translate ambitious ideas into interfaces that still feel coherent and usable.",
-    name: "Creative Collaborator",
-    role: "Design and build workflow",
-  },
-  {
-    quote:
-      "There is a clear sense of craft in the motion, but the structure underneath is equally thoughtful.",
-    name: "Client Feedback",
-    role: "Premium web experience brief",
+    body: "Continuing to push deeper into motion-led frontend systems, immersive presentation, and premium product UI craft.",
   },
 ]
 
@@ -293,24 +242,17 @@ export const commandPaletteLinks = [
   { label: "Jump to Projects", href: "#projects" },
   { label: "Jump to Skills", href: "#skills" },
   { label: "Jump to Timeline", href: "#timeline" },
-  { label: "Jump to Testimonials", href: "#testimonials" },
   { label: "Contact Rishu", href: "#contact" },
   { label: "Open Resume", href: resumeUrl, external: true },
 ]
 
 export const contactData = {
-  eyebrow: "High-trust contact",
-  title: "Let's build something sharp, immersive, and impossible to ignore.",
+  eyebrow: "Start a conversation",
+  title: "Let's build something sharp, modern, and hard to ignore.",
   description:
-    "Whether you need a portfolio, SaaS marketing site, product interface, or a custom interactive web experience, I can help shape it from concept to polished build.",
-  responsePromise: "Typical response time: within 24 hours.",
-  availability: "Open to freelance, collaborations, and high-upside product work.",
-  serviceFocus: [
-    "Premium portfolio and personal brand experiences",
-    "Interactive product marketing sites",
-    "Motion-led frontend implementation",
-    "AI-assisted product experiences",
-  ],
+    "Share the brief and I will help shape the right direction, interaction approach, and frontend scope for the build.",
+  responsePromise: "Replies within 24 hours for serious project inquiries.",
+  availability: "Available for freelance frontend, portfolio, SaaS, and product UI work.",
 }
 
 export const contactFormConfig = {
@@ -325,10 +267,3 @@ export const budgetMarks = [
   { value: 6000, label: "$6k" },
   { value: 10000, label: "$10k+" },
 ]
-
-export const footerData = {
-  kicker: "Freelance-ready",
-  title: "Available to shape the next version of your digital presence.",
-  blurb:
-    "For teams and founders who want more than a good-looking page: stronger narrative, richer interaction, and production-grade delivery.",
-}
